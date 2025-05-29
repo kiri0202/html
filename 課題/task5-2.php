@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="reset.css">
   <title>Document</title>
 </head>
 <body>
- <a href="課題">課題</a>
+  <?php
+  
+  $week=["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日",];
+
+  
+  ?>
 </body>
 </html>
