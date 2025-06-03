@@ -6,12 +6,19 @@
   <title>Document</title>
 </head>
 <body>
+  <table>
+   
   <?php
-  for ($a=1;$a<=9;$a++){
-    echo "<br>";
-    for ($b=1;$b<=9;$b++)
-      echo "　$a"."×"."$b=".$a*$b;
+  for ($a=1;$a<=20;$a++){
+    echo " <tr>";
+    for ($b=1;$b<=9;$b++){
+      echo "<td>"."　$a"."×"."$b=".$a*$b."</td>";
+    }
+    echo "</tr>";
   }
   ?>
+     
+    
+  </table>
 </body>
 </html>
