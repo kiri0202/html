@@ -1,83 +1,148 @@
 <?php
-class ContactForm{
-  public $name;
-  public $furigana;
-  public $email;
-  public $tel;
-  public $subject;
-  public $message;
-  public $checkbox;
+$name=$_POST["name"];
+$furigana=$_POST["furigana"];
+$email=$_POST["email"];
+$tel=$_POST["tel"];
+$subject=$_POST["subject"];
+$message=$_POST["message"];
+$checkbox=$_POST["checkbox"];
+$i=1;
+if (empty($name)){
+    echo "名前が入力されていません。<br>";
+    }
+    else{
+    echo "";
+    $i++;
+    }
+if (empty($furigana)){
+    echo "フリガナが入力されていません。<br>";
+    }
+    else{
+    echo "";
+    $i++;
+    }
+if (filter_var($email, FILTER_VALIDATE_EMAIL)){
+    echo "";
+    $i++;
+    }
+    else{
+    echo "メールアドレスが正しく入力されていません。<br>";
+    }
+if (empty($tel)){
+    echo "電話番号が正しく入力されていません。<br>";
+    }
+    elseif(preg_match('/^\d{10}$/', $tel)){
+       echo "";
+       $i++;
+    }
+    elseif(preg_match('/^\d{11}$/', $tel)){
+       echo "";
+       $i++;
+    }
+    else{
+    echo "電話番号が正しく入力されていません。<br>";
+    }
+if (empty($subject)){
+    echo "選択が入力されていません。<br>";
+    }
+    else{
+    echo "";
+    $i++;
+    }
+if (empty($message)){
+    echo "お問い合わせ内容が入力されていません。<br>";
+    }
+    else{
+    echo "";
+    $i++;
+    }
 
-  public function __construct($name,$furigana,$email,$tel,$subject,$message,$checkbox){
-    $this->name =$name;
-    $this->furigana =$furigana;
-    $this->email =$email;
-    $this->tel =$tel;
-    $this->subject =$subject;
-    $this->message =$message;
-    $this->checkbox =$checkbox;
+  if($i===7){
+    $check="送信";
   }
-  public function name(){
-    if (empty($this->name)) {
-    return "名前が入力されていません。";
-    }
-    return "";
+  else{
+    $check="確認";
   }
-  public function furigana(){
-    if (empty($this->furigana)) {
-    return "フリガナが入力されていません。";
-    }
-    return "";
-  }
-  public function email(){
-     if (filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-    return "" ;
-  } else {
-    return "メールアドレスの形式が正しくありません。";
-  }
-}
-  public function tel(){
-    if (empty($this->tel)) {
-    return "電話番号が入力されていません。";
-    }
-    elseif(preg_match('/^\d{10}$/', $this->tel)){
-       return "";
-    }
-    elseif(preg_match('/^\d{11}$/', $this->tel)){
-       return "";
-    }
-   else{
-    return "電話番号が入力されていません。";
-   }
-  }
-  public function subject(){
-    if (empty($this->subject)) {
-    return "選択肢が入力されていません。";
-    }
-    return "";
-  }
-  public function message(){
-    if (empty($this->message)) {
-    return "お問い合わせ内容が入力されていません。";
-    }
-    return "";
-  }
-  public function checkbox(){
-    if (empty($this->checkbox)) {
-    return "個人情報保護方針にチェックが入っていません。";
-    }
-    return "";
-  }
-}
-$ContactForm = new ContactForm(
-  $_POST['name'] ?? '',
-  $_POST['furigana'] ?? '',
-  $_POST['email'] ?? '',
-  $_POST['tel'] ?? '',
-  $_POST['subject'] ?? '',
-  $_POST['message'] ?? '',
-  $_POST['checkbox'] ?? ''
-);
+
+// class ContactForm{
+//   public $name;
+//   public $furigana;
+//   public $email;
+//   public $tel;
+//   public $subject;
+//   public $message;
+//   public $checkbox;
+
+//   public function __construct($name,$furigana,$email,$tel,$subject,$message,$checkbox){
+//     $this->name =$name;
+//     $this->furigana =$furigana;
+//     $this->email =$email;
+//     $this->tel =$tel;
+//     $this->subject =$subject;
+//     $this->message =$message;
+//     $this->checkbox =$checkbox;
+//   }
+//   public function name(){
+//     if (empty($this->name)) {
+//     return "名前が入力されていません。";
+//     }
+//     return "";
+//   }
+//   public function furigana(){
+//     if (empty($this->furigana)) {
+//     return "フリガナが入力されていません。";
+//     }
+//     return "";
+//   }
+  // public function email(){
+  //    if (filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+  //   return "" ;
+  // } else {
+  //   return "メールアドレスの形式が正しくありません。";
+  // }
+// }
+//   public function tel(){
+//     if (empty($this->tel)) {
+//     return "電話番号が入力されていません。";
+//     }
+//     elseif(preg_match('/^\d{10}$/', $this->tel)){
+//        return "";
+//     }
+//     elseif(preg_match('/^\d{11}$/', $this->tel)){
+//        return "";
+//     }
+//    else{
+//     return "電話番号が入力されていません。";
+//    }
+//   }
+//   public function subject(){
+//     if (empty($this->subject)) {
+//     return "選択肢が入力されていません。";
+//     }
+//     return "";
+//   }
+//   public function message(){
+//     if (empty($this->message)) {
+//     return "お問い合わせ内容が入力されていません。";
+//     }
+//     return "";
+//   }
+//   public function checkbox(){
+//     if (empty($this->checkbox)) {
+//     return "個人情報保護方針にチェックが入っていません。";
+//     }
+//     return "";
+//   }
+// }
+// $ContactForm = new ContactForm(
+//   $_POST['name'] ?? '',
+//   $_POST['furigana'] ?? '',
+//   $_POST['email'] ?? '',
+//   $_POST['tel'] ?? '',
+//   $_POST['subject'] ?? '',
+//   $_POST['message'] ?? '',
+//   $_POST['checkbox'] ?? ''
+// );
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -114,44 +179,38 @@ $ContactForm = new ContactForm(
     <div class="sec_17">
       <label for="name">お名前</label>
       <p class="sec_18">必須</p>
-      <input type="text" id="name" name="name" placeholder="  山田太郎" value="<?= htmlspecialchars($ContactForm->name); ?>">
+      <input type="text" id="name" name="name" placeholder="  山田太郎" value="<?= htmlspecialchars($name); ?>">
     </div>
-    <p class="sec_31"><?=$ContactForm->name()?></p>
     <div class="sec_17">
       <label for="name">フリガナ</label>
       <p class="sec_18">必須</p>
-      <input type="text" id="name" name="furigana" placeholder="  フリガナ"value="<?= htmlspecialchars($ContactForm->furigana); ?>">
+      <input type="text" id="name" name="furigana" placeholder="  フリガナ"value="<?= htmlspecialchars($furigana); ?>">
     </div>
-    <p class="sec_31"><?=$ContactForm->furigana()?></p>
     <div class="sec_17">
       <label for="name">メールアドレス</label>
       <p class="sec_18">必須</p>
-      <input type="email" id="name" name="email" placeholder="  メールアドレス">
+      <input type="email" id="name" name="email" placeholder="  メールアドレス"value="<?= htmlspecialchars($email); ?>">>
     </div>
-      <p class="sec_31"><?=$ContactForm->email()?></p>
     <div class="sec_17">
       <label for="name">電話番号</label>
       <p class="sec_18">必須</p> 
-      <input type="tel" id="name" name="tel" placeholder="  電話番号"value="<?= htmlspecialchars($ContactForm->tel); ?>">
+      <input type="tel" id="name" name="tel" placeholder="  電話番号"value="<?= htmlspecialchars($tel); ?>">
     </div>
-    <p class="sec_31"><?=$ContactForm->tel()?></p>
     <div class="sec_17">
       <label for="name">選択してください</label>
       <p class="sec_18">必須</p>
-      <input type="text" id="name" name="subject" placeholder="  選択してください"value="<?= htmlspecialchars($ContactForm->subject); ?>">
+      <input type="text" id="name" name="subject" placeholder="  選択してください"value="<?= htmlspecialchars($subject); ?>">
     </div>
-    <p class="sec_31"><?=$ContactForm->subject()?></p>
     <div class="sec_17">
       <label for="name">お問い合わせ内容</label>
       <p class="sec_18">必須</p>
-      <textarea  id="name2" name="message" rows="5" placeholder="  こちらにお問い合わせ内容をご記入ください"><?= htmlspecialchars($ContactForm->message); ?></textarea>
+      <textarea  id="name2" name="message" rows="5" placeholder="  こちらにお問い合わせ内容をご記入ください"><?= htmlspecialchars($message); ?></textarea>
     </div>
-      <p class="sec_31"><?=$ContactForm->message()?></p>
     <div class="sec_21">
       <label for="checkbox">個人情報保護方針</label>
       <p class="sec_18">必須</p>
       <div class="sec_19">
-        <p><input type="checkbox" id="checkbox" name="checkbox" value="agree" placeholder="  お問い合わせ内容" <?= ($ContactForm->checkbox === 'agree') ? 'checked' : '' ?> ></p>
+        <p><input type="checkbox" id="checkbox" name="checkbox" value="agree" placeholder="  お問い合わせ内容" >
         <p class="sec_20"><a href="">個人情報保護方針📚</a></p>
         <p>に同意します。</p>
       </div>
@@ -159,7 +218,7 @@ $ContactForm = new ContactForm(
     </div>
  
   <div class="sec_30">
-    <button type="submit" class="button3">確認</button>
+    <button type="submit" class="button3"><?php echo $check ?></button>
   </div> 
 </form>
   <footer>
