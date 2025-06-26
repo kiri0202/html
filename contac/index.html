@@ -33,38 +33,43 @@
     <div class="sec_17">
       <label for="name">お名前</label>
       <p class="sec_18">必須</p>
-      <input type="text" id="name" name="name" placeholder="  山田太郎">
+      <input type="text" class="waku" name="name" placeholder="  山田太郎">
     </div>
     <div class="sec_17">
       <label for="name">フリガナ</label>
       <p class="sec_18">必須</p>
-      <input type="text" id="name" name="furigana" placeholder="  フリガナ">
+      <input type="text" class="waku" name="furigana" placeholder="  フリガナ">
     </div>
     <div class="sec_17">
       <label for="name">メールアドレス</label>
       <p class="sec_18">必須</p>
-      <input type="email" id="name" name="email" placeholder="  メールアドレス">
+      <input type="email" class="waku" name="email" placeholder="  メールアドレス">
     </div>
     <div class="sec_17">
       <label for="name">電話番号</label>
       <p class="sec_18">必須</p> 
-      <input type="tel" id="name" name="tel" placeholder="  電話番号">
+      <input type="tel" class="waku" name="tel" placeholder="  電話番号">
     </div>
     <div class="sec_17">
       <label for="name">選択してください</label>
       <p class="sec_18">必須</p>
-      <input type="name" id="name" name="subject" placeholder="  選択してください">
+      <select type="name" class="waku" name="subject"  placeholder="  選択してください">
+        <option value="">選択してください</option>
+        <option value="tokyo" >東京</option>
+        <option value="osaka">大阪</option>
+        <option value="hokkaido">北海道</option>
+      </select>
     </div>
     <div class="sec_17">
       <label for="name">お問い合わせ内容</label>
       <p class="sec_18">必須</p>
-      <textarea type="name" id="name2" name="message" rows="5" placeholder="  こちらにお問い合わせ内容をご記入ください"></textarea>
+      <textarea type="name" class="waku_2" name="message" rows="5" placeholder="  こちらにお問い合わせ内容をご記入ください"></textarea>
     </div>
     <div class="sec_21">
       <label for="checkbox">個人情報保護方針</label>
       <p class="sec_18">必須</p>
       <div class="sec_19">
-        <p><input type="checkbox" id="checkbox" name="checkbox" placeholder="  お問い合わせ内容"></p>
+        <p><input type="checkbox" id="checkbox" name="checkbox" ></p>
         <p class="sec_20"><a href="">個人情報保護方針📚</a></p>
         <p>に同意します。</p>
       </div>

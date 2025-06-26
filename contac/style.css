@@ -125,12 +125,13 @@ footer p{
   align-content: center;
   width: 150px;
 }
-.sec_17 #name{
+
+.waku{
   border: solid 1px;
   width: 80%;
   margin-right: 10px;
   }
-.sec_17 #name2{
+.waku_2{
   border: solid 1px;
   height: 200px;
   width: 80%;
@@ -184,10 +185,11 @@ footer p{
 .sec_30{
   place-self: center;
 }
-.sec_31{
- color: red;
- margin: 0 20px;
+.sec_40{
+  place-self: anchor-center;
+  color: red;
 }
+
 @media screen and (max-width:767px){
   .sec_1{
     flex-direction:column ;

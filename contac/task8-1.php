@@ -6,64 +6,7 @@ $tel=$_POST["tel"];
 $subject=$_POST["subject"];
 $message=$_POST["message"];
 $checkbox=$_POST["checkbox"];
-$i=1;
-if (empty($name)){
-    echo "名前が入力されていません。<br>";
-    }
-    else{
-    echo "";
-    $i++;
-    }
-if (empty($furigana)){
-    echo "フリガナが入力されていません。<br>";
-    }
-    else{
-    echo "";
-    $i++;
-    }
-if (filter_var($email, FILTER_VALIDATE_EMAIL)){
-    echo "";
-    $i++;
-    }
-    else{
-    echo "メールアドレスが正しく入力されていません。<br>";
-    }
-if (empty($tel)){
-    echo "電話番号が正しく入力されていません。<br>";
-    }
-    elseif(preg_match('/^\d{10}$/', $tel)){
-       echo "";
-       $i++;
-    }
-    elseif(preg_match('/^\d{11}$/', $tel)){
-       echo "";
-       $i++;
-    }
-    else{
-    echo "電話番号が正しく入力されていません。<br>";
-    }
-if (empty($subject)){
-    echo "選択が入力されていません。<br>";
-    }
-    else{
-    echo "";
-    $i++;
-    }
-if (empty($message)){
-    echo "お問い合わせ内容が入力されていません。<br>";
-    }
-    else{
-    echo "";
-    $i++;
-    }
-
-  if($i===7){
-    $check="送信";
-  }
-  else{
-    $check="確認";
-  }
-
+$i=0;
 // class ContactForm{
 //   public $name;
 //   public $furigana;
@@ -175,42 +118,106 @@ if (empty($message)){
     <p>お問い合わせや業務内容に関するご質問は、電話またはこちらのお問い合わせフォームより承っております。</p>
     <p>後ほど担当者よりご連絡させていただきます。</p>
   </div>
+  <div class=sec_40>
+
+  <?php
+  if (empty($name)){
+    echo "名前が入力されていません。<br>";$i++;
+    }
+    else{
+    echo "";
+    
+    }
+if (empty($furigana)){
+    echo "フリガナが入力されていません。<br>";   $i++;
+    }
+    else{
+    echo "";
+ 
+    }
+if (filter_var($email, FILTER_VALIDATE_EMAIL)){
+    echo "";
+    
+    }
+    else{
+    echo "メールアドレスが正しく入力されていません。<br>";$i++;
+    }
+if (empty($tel)){
+    echo "電話番号が正しく入力されていません。<br>";$i++;
+    }
+    elseif(preg_match('/^\d{10}$/', $tel)){
+       echo "";
+    }
+    elseif(preg_match('/^\d{11}$/', $tel)){
+       echo "";
+    }
+    else{
+    echo "電話番号が正しく入力されていません。<br>";$i++;
+    }
+if (empty($subject)){
+    echo "選択が入力されていません。<br>";$i++;
+    }
+    else{
+    echo "";
+    
+    }
+if (empty($message)){
+    echo "お問い合わせ内容が入力されていません。<br>"; $i++;
+    }
+    else{
+    echo "";
+   
+    }
+
+  if($i===0){
+    $check="送信"; 
+  }
+  else{
+    $check="確認";
+  }
+?>
+  </div>
   <form action="task8-1.php" method="post">
     <div class="sec_17">
       <label for="name">お名前</label>
       <p class="sec_18">必須</p>
-      <input type="text" id="name" name="name" placeholder="  山田太郎" value="<?= htmlspecialchars($name); ?>">
+      <input type="text"  class="waku" placeholder="  山田太郎" value="<?= $name; ?>">
     </div>
     <div class="sec_17">
       <label for="name">フリガナ</label>
       <p class="sec_18">必須</p>
-      <input type="text" id="name" name="furigana" placeholder="  フリガナ"value="<?= htmlspecialchars($furigana); ?>">
+      <input type="text" class="waku" name="furigana" placeholder="  フリガナ"value="<?= $furigana; ?>">
     </div>
     <div class="sec_17">
       <label for="name">メールアドレス</label>
       <p class="sec_18">必須</p>
-      <input type="email" id="name" name="email" placeholder="  メールアドレス"value="<?= htmlspecialchars($email); ?>">>
+      <input type="email" class="waku" name="email" placeholder="  メールアドレス"value="<?= $email; ?>">>
     </div>
     <div class="sec_17">
       <label for="name">電話番号</label>
       <p class="sec_18">必須</p> 
-      <input type="tel" id="name" name="tel" placeholder="  電話番号"value="<?= htmlspecialchars($tel); ?>">
+      <input type="tel" class="waku" name="tel" placeholder="  電話番号"value="<?= $tel; ?>">
     </div>
     <div class="sec_17">
       <label for="name">選択してください</label>
       <p class="sec_18">必須</p>
-      <input type="text" id="name" name="subject" placeholder="  選択してください"value="<?= htmlspecialchars($subject); ?>">
+      <select type="name" class="waku" name="subject"  placeholder="  選択してください">
+        <option value="">  選択してください</option>
+        <option value="tokyo"<?php if($subject ==="tokyo"){echo "selected";}?>>東京</option>
+        <option value="osaka"<?php if($subject ==="osaka"){echo "selected";}?>>大阪</option>
+        <option value="hokkaido"<?php if($subject ==="hokkaido"){echo "selected";}?>>北海道</option>
+      </select>
     </div>
     <div class="sec_17">
       <label for="name">お問い合わせ内容</label>
       <p class="sec_18">必須</p>
-      <textarea  id="name2" name="message" rows="5" placeholder="  こちらにお問い合わせ内容をご記入ください"><?= htmlspecialchars($message); ?></textarea>
+      <textarea  class="waku_2" name="message" rows="5" placeholder="  こちらにお問い合わせ内容をご記入ください"><?= $message; ?></textarea>
     </div>
     <div class="sec_21">
       <label for="checkbox">個人情報保護方針</label>
       <p class="sec_18">必須</p>
       <div class="sec_19">
-        <p><input type="checkbox" id="checkbox" name="checkbox" value="agree" placeholder="  お問い合わせ内容" >
+        <p><input type="checkbox" id="checkbox" name="checkbox" value="ok"<?php if($checkbox==="ok"){echo "checked";}else{$i++;}?>>
         <p class="sec_20"><a href="">個人情報保護方針📚</a></p>
         <p>に同意します。</p>
       </div>
