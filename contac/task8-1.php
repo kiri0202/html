@@ -122,53 +122,31 @@ $i=0;
 
   <?php
   if (empty($name)){
-    echo "名前が入力されていません。<br>";$i++;
-    }
-    else{
-    echo "";
-    
+    echo "名前が入力されていません。<br>";  $i++;
     }
 if (empty($furigana)){
     echo "フリガナが入力されていません。<br>";   $i++;
     }
-    else{
-    echo "";
- 
+if (!filter_var ($email, FILTER_VALIDATE_EMAIL)){
+  echo "メールアドレスが正しく入力されていません。<br>";$i++;  
     }
-if (filter_var($email, FILTER_VALIDATE_EMAIL)){
-    echo "";
-    
-    }
-    else{
-    echo "メールアドレスが正しく入力されていません。<br>";$i++;
-    }
+  
 if (empty($tel)){
     echo "電話番号が正しく入力されていません。<br>";$i++;
     }
-    elseif(preg_match('/^\d{10}$/', $tel)){
-       echo "";
+    elseif(!preg_match('/^\d{10}$|^\d{11}$/', $tel)){
+      echo "電話番号が正しく入力されていません。<br>";$i++;
     }
-    elseif(preg_match('/^\d{11}$/', $tel)){
-       echo "";
-    }
-    else{
-    echo "電話番号が正しく入力されていません。<br>";$i++;
-    }
+   
+
 if (empty($subject)){
     echo "選択が入力されていません。<br>";$i++;
-    }
-    else{
-    echo "";
-    
-    }
+  }
+
 if (empty($message)){
     echo "お問い合わせ内容が入力されていません。<br>"; $i++;
     }
-    else{
-    echo "";
    
-    }
-
   if($i===0){
     $check="送信"; 
   }
@@ -177,11 +155,11 @@ if (empty($message)){
   }
 ?>
   </div>
-  <form action="task8-1.php" method="post">
+  <form action="<?php if( $check === "送信"){echo "task9-1.php";}else{echo "task8-1.php";}?>" method="post">
     <div class="sec_17">
       <label for="name">お名前</label>
       <p class="sec_18">必須</p>
-      <input type="text"  class="waku" placeholder="  山田太郎" value="<?= $name; ?>">
+      <input type="text"  class="waku" name="name" placeholder="  山田太郎" value="<?= $name; ?>">
     </div>
     <div class="sec_17">
       <label for="name">フリガナ</label>
@@ -191,7 +169,7 @@ if (empty($message)){
     <div class="sec_17">
       <label for="name">メールアドレス</label>
       <p class="sec_18">必須</p>
-      <input type="email" class="waku" name="email" placeholder="  メールアドレス"value="<?= $email; ?>">>
+      <input type="email" class="waku" name="email" placeholder="  メールアドレス"value="<?= $email; ?>">
     </div>
     <div class="sec_17">
       <label for="name">電話番号</label>
