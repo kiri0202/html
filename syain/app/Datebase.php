@@ -85,6 +85,7 @@ class Database
 
   function deletesyain($id)
   {
+    $this->connect();
     // echo $id;
     // exit;
     try {
@@ -104,17 +105,17 @@ class Database
   }
   function updatesyain($id,$name,$age,$work,$old_id)
   {
-    $id=$old_id;
+    $this->connect();
     try {
-      $stmt = $this->pdo->prepare("UPDATE syain SET id=?, name=?, age=?, work=?WHERE id = ?;");
+      $stmt = $this->pdo->prepare("UPDATE syain SET id=?, name=?, age=?, work=?  WHERE id = ?;");
       $stmt->bindParam(1,$id,PDO::PARAM_INT);
       $stmt->bindParam(2,$name,PDO::PARAM_STR);
       $stmt->bindParam(3,$age,PDO::PARAM_INT);
       $stmt->bindParam(4,$work,PDO::PARAM_STR);
-      $stmt->bindParam(5,$old_id,PDO::PARAM_STR);
+      $stmt->bindParam(5,$old_id,PDO::PARAM_INT);
       $result = $stmt->execute();
       return true;
-      exit;
+     
     } catch (PDOException $e){
       echo $e->getMessage().'<br>';
       exit;

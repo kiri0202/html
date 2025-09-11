@@ -54,8 +54,8 @@ TABLE3;
 }
 
 function show_form($id,$name,$age,$work,$old_id,$status,$button)
-{
-  $error = "";
+{ 
+
   $error = get_error();
   echo <<<FORM
   <form action="post_data.php" method="post">
@@ -84,6 +84,12 @@ function show_delete()
 {
   $error = get_error();
   show_form("","","","","","delete","削除");
+}
+function show_updete($id,$name,$age,$work,$old_id,$status,$button)
+{
+ 
+  // $error = get_error();
+  show_form($id,$name,$age,$work,$old_id,"update","更新");
 }
 
 function show_syain($member)
@@ -135,39 +141,44 @@ function show_operation($operation,$id){
   </form>
 FORM5;
   }
-  elseif($operation === 'update') {
-    $status = "update";
-    echo <<<FORM6
-  <form action="post_data.php" method="post">
-    <button>更新する</button>
-    <input type="hidden" name="status"  value="{$status}">
-  </form>
-FORM6;
-  }
+//   elseif($operation === 'update') {
+//     $status = "update";
+//     echo <<<FORM6
+  
+//   <input type="hidden" name="status"  value="{$status}">
+//     <button>更新する</button>
+//   </form>
+// FORM6;
+//   }
   else {
     echo "<button><a href=syain_update.php?id={$id}>更新</a></button><br>";
     echo "<button><a href=syain_delete.php?id={$id}>削除</a></button><br>";
   }
 }
 
-function show_update($member)
-{
-  $error = "";
-  $error = get_error();
-  echo <<<FORM
-  <form action="post_data.php" method="post">
-    <p>社員番号</p>
-    <input type="text" name="id" value="{$member["id"]}" >
-    <p>名前</p>
-    <input type="text" name="name" value="{$member["name"]}" >
-    <p>年齢</p>
-    <input type="text" name="age" value="{$member["age"]}" >
-    <p>業務形態</p>
-    <input type="text" name="work" value="{$member["work"]}">
-    <p class="red">{$error}</p>
+// function show_update($id,$name,$age,$work,$old_id,$status,$button)
+// {
+//   $error = "";
+//   $error = get_error();
+//   echo <<<FORM
+//   <form action="post_data.php" method="post">
+//     <p>社員番号</p>
+//     <input type="text" name="id" value="{$id}" >
+//     <p>名前</p>
+//     <input type="text" name="name" value="{$name}" >
+//     <p>年齢</p>
+//     <input type="text" name="age" value="{$age}" >
+//     <p>業務形態</p>
+//     <input type="text" name="work" value="{$work}">
+//     <p class="red">{$error}</p>
+//     <input type="hidden" name="status"  value="{$status}">
+//     <button>更新する</button>
+//   </form>
 
-  </form>
-FORM;
-}
+ 
+// FORM;
+// show_form($id,$name,$age,$work,$old_id,$status,$button);
+
+// }
 
 ?>

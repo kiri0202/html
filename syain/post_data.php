@@ -1,4 +1,6 @@
 <?php
+// var_dump($_POST);
+// exit;
 require_once('common.php');
 if(isset($_POST["status"])){
   if(isset($_POST["id"])){
@@ -33,13 +35,14 @@ if(isset($_POST["status"])){
       header("Location: syain_create.php?error={$error}");
       exit();
     }
-    
+  
     header("Location: index.php");
     exit();
   }elseif ($_POST["status"] == "delete") {
+    
+    // exit;
     if ($db->deletesyain($id) == true) {
       // var_dump($delete);
-      exit;
       header("Location: index.php");
       exit;
     }
@@ -47,8 +50,15 @@ if(isset($_POST["status"])){
   
   }elseif ($_POST["status"] == "update") {
     // var_dump($_POST);
+    // exit;
+   
+    if ($db->updatesyain($id,$name,$age,$work,$old_id,$status,$button) == true) {
+     
+     
+      header("Location: index.php");
+  
+    }
     
-    // header("Location: index.php");
-    exit();
+    exit;
   }
 }

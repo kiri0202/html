@@ -10,15 +10,15 @@
       ]
     );
 
-    // $pdo->query("DROP TABLE IF EXISTS syain");
-    // $pdo->query(
-    //   "CREATE TABLE syain(
-    //     id  INT PRIMARY KEY,
-    //     name VARCHAR(128),
-    //     age INT,
-    //     work VARCHAR(64)
-    //   )"
-    // );
+    $pdo->query("DROP TABLE IF EXISTS syain");
+    $pdo->query(
+      "CREATE TABLE syain(
+        id  INT PRIMARY KEY,
+        name VARCHAR(128),
+        age INT,
+        work VARCHAR(64)
+      )"
+    );
 
     $pdo->query(
       "INSERT INTO syain (id,name,age,work) VALUES
