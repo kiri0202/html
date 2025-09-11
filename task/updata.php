@@ -12,6 +12,7 @@ $start=$gettask['start'];
 $zyoutai=$gettask['zyoutai'];
 
 show_edit($task,$end,$naiyou,$start,"更新",$status,$zyoutai);
+show_down("task");
 
-echo $gettask[0]["start"];
+
 ?>

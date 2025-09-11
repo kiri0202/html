@@ -115,7 +115,7 @@ class Database
       $stmt->bindParam(5,$old_id,PDO::PARAM_INT);
       $result = $stmt->execute();
       return true;
-     
+    
     } catch (PDOException $e){
       echo $e->getMessage().'<br>';
       exit;

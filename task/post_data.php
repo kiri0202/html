@@ -27,5 +27,11 @@ if($_POST["status"] == "create"){
   $db->createtask($task,$end,$naiyou,$start,$zyoutai);
   header("Location: index.php");
   exit();
+}elseif($_POST["status"] == "updata"){
+  
+  $db->updatatask($task,$end,$naiyou,$start,$zyoutai);
+  header("Location: index.php");
+  exit();
 }
+
 ?>

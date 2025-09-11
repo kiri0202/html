@@ -63,14 +63,49 @@ class Database
       
       return $gettask[0];
 
-
-
     }catch (PDOException $e){
     echo $e->getMessage().'<br>';
     exit;
     }
   }
 
+
+
+  function updatatask($task,$end,$naiyou,$start,$zyoutai)
+    {
+    $this->connect();
+    try {
+      $stmt = $this->pdo->prepare("UPDATE task SET task=?, end=?, naiyou=?, start=? , zyoutai=? WHERE task = ?;");
+      $stmt->bindParam(1,$task,PDO::PARAM_STR);
+      $stmt->bindParam(2,$end,PDO::PARAM_STR);
+      $stmt->bindParam(3,$naiyou,PDO::PARAM_STR);
+      $stmt->bindParam(4,$start,PDO::PARAM_STR);
+      $stmt->bindParam(5,$zyoutai,PDO::PARAM_STR);
+      $stmt->bindParam(6,$task,PDO::PARAM_STR);
+      $result = $stmt->execute();
+      return true;
+     
+    } catch (PDOException $e){
+      echo $e->getMessage().'<br>';
+      exit;
+    }
+    return false;
+  }
+
+  function deletesyain($id)
+  {
+    $this->connect();
+    try {
+      $stmt = $this->pdo->prepare("DELETE FROM task WHERE task = ?");
+      $stmt->bindParam(1,$id,PDO::PARAM_STR);
+      $result = $stmt->execute();
+  
+      return true;
+    } catch (PDOException $e){
+      echo $e->getMessage().'<br>';
+    }
+    return false;
+  }
 }
 
 

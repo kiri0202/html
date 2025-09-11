@@ -86,7 +86,7 @@ function show_create(){
 }
 
 function show_edit($task,$end,$naiyou,$start,$button,$status,$zyoutai){
-  show_form($task,$end,$naiyou,$start,$button,$status,$zyoutai);
+  show_form($task,$end,$naiyou,$start,$button,"updata",$zyoutai);
 }
 ?>
 
