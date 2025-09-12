@@ -1,3 +1,4 @@
+
 <?php
 define('DSN','mysql:host=localhost;dbname=task;charset=utf8mb4');
 define('USER','root');
@@ -24,6 +25,7 @@ class Database
  
 
   function createtask($task,$end,$naiyou,$start,$zyoutai){
+    
     try {
     $this->connect();
     $stmt = $this->pdo->prepare("INSERT INTO task (task, end, naiyou, start, zyoutai) VALUES(?,?,?,?,?)");
@@ -92,12 +94,12 @@ class Database
     return false;
   }
 
-  function deletesyain($id)
+  function deletetask($task)
   {
     $this->connect();
     try {
       $stmt = $this->pdo->prepare("DELETE FROM task WHERE task = ?");
-      $stmt->bindParam(1,$id,PDO::PARAM_STR);
+      $stmt->bindParam(1,$task,PDO::PARAM_STR);
       $result = $stmt->execute();
   
       return true;
