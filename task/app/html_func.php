@@ -32,29 +32,29 @@ BOTTOM;
 function show_task($gettask){
   echo <<<TABLE
   <table>
-    <tr>
-    <th>登録日時</th>
-    <th>タスク名</th>
-    <th>ステータス</th>
-    <th>締切日</th>
-    </tr>
-TABLE;
-
+  <tr>
+  <th>登録日時</th>
+  <th>タスク名</th>
+  <th>ステータス</th>
+  <th>締切日</th>
+  </tr>
+  TABLE;
+  
   foreach ($gettask as $gettasks) {
-  if($gettasks["zyoutai"]=="未完了"){
-    $naiyou="未完了";
+    $start=date('n月j日 H時i分', strtotime($gettasks["start"]));
+    $end=date('n月j日', strtotime($gettasks["end"]));
+    if($gettasks["zyoutai"]=="未完了"){
+    $zyoutai="未完了";
   }else{
-    $naiyou="完了";
+    $zyoutai="完了";
   }
   echo <<<TABLE3
   <form action="post_data.php" method="post">
   <tr>
-  <td>{$gettasks["start"]}</td>
-  <td><a href="updata.php?task={$gettasks['task']}">{$gettasks['task']}</td>
-  <td>{$naiyou}</td>
-  <td>{$gettasks["end"]}</td>
-  <td>
-  <input type="submit" name="button"  value="削除" class=delete></td>
+  <td>{$start}</td>
+  <td><a href="updata.php?task={$gettasks['task']}">{$gettasks['task']}</a></td>
+  <td>{$zyoutai}</td>
+  <td>{$end}</td>
   </tr>
   </form>
  
@@ -71,10 +71,8 @@ function show_form($task,$end,$naiyou,$start,$button,$status,$zyoutai){
 <form action="post_data.php" method="post">
   <p>タスク名</p>
   <input type="text" name="task" value="{$task}">
-  <p>登録日時</p>
-  <input type="text" name="start" value="{$start}">
   <p>締切日</p>
-  <input type="text" name="end" value="{$end}">
+  <input type="date" name="end" value="{$end}">
   <p>内容</p>
   <textarea name="naiyou" rows="5" >{$naiyou}</textarea>
   

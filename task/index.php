@@ -19,10 +19,13 @@ show_down("task");
 //     $pdo->query("DROP TABLE IF EXISTS task");
 //     $pdo->query(
 //       "CREATE TABLE task(
-//         name VARCHAR(128),
-//         start VARCHAR(128),
+//         id INT AUTO_INCREMENT PRIMARY KEY,
+//         task VARCHAR(128),
+//         start TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 //         status VARCHAR(128),
-//         end VARCHAR(128)
+//         end DATE,
+//         naiyou VARCHAR(1024),
+//         zyoutai VARCHAR(128)
 //       )"
 //     );
 //  }catch(PDOException $e){
