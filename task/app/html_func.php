@@ -75,12 +75,38 @@ function show_form($task,$end,$naiyou,$start,$button,$status,$zyoutai,$error){
   <input type="date" name="end" value="{$end}">
   <p>内容</p>
   <textarea name="naiyou" rows="5" >{$naiyou}</textarea>
-  <input type="submit" name="button"  value="{$button}" class=left>
+
   <input type="hidden" name="status"  value="{$status}">
   <input type="hidden" name="zyoutai" value="{$zyoutai}" > 
 </form>
 TABLE2;
-echo $error;
+
+if($zyoutai=="未完了"){
+echo <<<TABLE6
+<p>ステータス</p>
+<input type="radio" name="zyoutai" value="未完了" checked>未完了
+<input type="radio" name="zyoutai" value="完了">完了
+TABLE6;
+}elseif($zyoutai=="完了"){
+echo <<<TABLE6
+  <p>ステータス</p>
+  <input type="radio" name="zyoutai" value="未完了">未完了
+  <input type="radio" name="zyoutai" value="完了"checked>完了
+TABLE6;
+}
+if($status=="updata"){
+echo <<<TABLE3
+  <br><input type="submit" name="button"  value="更新" class=kousinn>
+  <input type="submit" name="button"  value="削除" class=sakuzyo>
+TABLE3;
+}else{
+  echo <<<TABLE4
+  <input type="submit" name="button"  value="{$button}" class=left>
+  <input type="hidden" name="zyoutai" value="{$zyoutai}" > 
+  
+TABLE4;
+
+}
 }
 
 function show_create(){
