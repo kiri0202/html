@@ -17,19 +17,3 @@ table,td,th{
 textarea{
   width: 200px;
 }
-.kousinn{
-  background-color: lightgreen;
-  margin: 20px;
-  margin-top: 50px;
-}
-.sakuzyo{
-  background-color: red;
-  margin: 20px;
-  margin-top: 50px;
-}
-th,td{
-  width:140px;
-}
-.delete{
-  background-color: red;
-}

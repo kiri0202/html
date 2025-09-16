@@ -1,4 +1,3 @@
-
 <?php
 define('DSN','mysql:host=localhost;dbname=task;charset=utf8mb4');
 define('USER','root');
@@ -25,7 +24,6 @@ class Database
  
 
   function createtask($task,$end,$naiyou,$start,$zyoutai){
-    
     try {
     $this->connect();
     $stmt = $this->pdo->prepare("INSERT INTO task (task, end, naiyou, start, zyoutai) VALUES(?,?,?,?,?)");
@@ -46,7 +44,7 @@ class Database
   function gettask(){
     try{
       $this->connect();
-      $stmt = $this->pdo->query("SELECT task , end , naiyou , start , zyoutai FROM task ORDER BY task;");
+      $stmt = $this->pdo->query("SELECT task , end ,  start , zyoutai FROM task ORDER BY task;");
       $task = $stmt->fetchAll();
       return $task;
     } catch (PDOException $e){
@@ -94,12 +92,12 @@ class Database
     return false;
   }
 
-  function deletetask($task)
+  function deletesyain($id)
   {
     $this->connect();
     try {
       $stmt = $this->pdo->prepare("DELETE FROM task WHERE task = ?");
-      $stmt->bindParam(1,$task,PDO::PARAM_STR);
+      $stmt->bindParam(1,$id,PDO::PARAM_STR);
       $result = $stmt->execute();
   
       return true;
