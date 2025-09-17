@@ -17,3 +17,6 @@ table,td,th{
 textarea{
   width: 200px;
 }
+.red{
+  color: red;
+}

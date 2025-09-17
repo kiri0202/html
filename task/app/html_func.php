@@ -17,10 +17,10 @@ TOP;
 
 function show_down($e){
   if($e=="create"){
-    echo "<button><a href=index.php>タスク登録</a></button>";
+    echo "<br><button><a href=index.php>タスク登録</a></button>";
     }
     elseif($e=="task"){
-      echo "<button><a href=task.php>タスク一覧</a></button>";
+      echo "<br><button><a href=task.php>タスク一覧</a></button>";
       
       }
 echo <<<BOTTOM
@@ -30,6 +30,7 @@ BOTTOM;
 }
 
 function show_task($gettask){
+  // date_default_timezone_set('Asia/Tokyo');
   echo <<<TABLE
   <table>
     <tr>
@@ -41,8 +42,12 @@ function show_task($gettask){
 TABLE;
 
   foreach ($gettask as $gettasks) {
-    $start = date('n月j日 G時i分', strtotime($gettasks["start"]));
 
+    $start = date('n月j日 G時i分', strtotime($gettasks["start"]));
+    $end = date('n月j日 ', strtotime($gettasks["end"]));
+    $id=$gettasks['id'];
+    $task=$gettasks['task'];
+    $status="";
   if($gettasks["zyoutai"]=="未完了"){
     $zyoutai="未完了";
   }else{
@@ -51,11 +56,17 @@ TABLE;
   echo <<<TABLE3
   <tr>
   <td>{$start}</td>
-  <td><a href="updata.php?task={$gettasks['task']}">{$gettasks['task']}</a></td>
+  <td><a href="updata.php?task={$gettasks['task']}&id={$gettasks['id']}">{$gettasks['task']}</a></td>
   <td>{$zyoutai}</td>
-  <td>{$gettasks["end"]}</td>
+  <td>{$end}</td>
   <td>
-  <input type="submit" name="button"  value="削除" class=delete></td>
+    <form action="post_data.php" method="post">
+      <input type="submit" name="button"  value="削除" class=delete>
+      <input type="hidden" name="id"  value="{$id}" >
+      <input type="hidden" name="task"  value="{$task}" >
+      <input type="hidden" name="status"  value="{$status}" >
+    </form>
+  </td>
   </tr>
  
 TABLE3;
@@ -65,48 +76,51 @@ TABLE3;
 TABLE4;
   
 }
-function show_form($task,$end,$naiyou,$start,$button,$status,$zyoutai,$error){
+function show_form($task,$end,$naiyou,$start,$button,$status,$zyoutai,$id){
+  
   echo <<<TABLE2
 <form action="post_data.php" method="post">
-  <p class="red">{$error}</p>
+  <p class="red">{$_GET["error"]}</p>
   <p>タスク名</p>
   <input type="text" name="task" value="{$task}">
   <p>締切日</p>
   <input type="date" name="end" value="{$end}">
   <p>内容</p>
   <textarea name="naiyou" rows="5" >{$naiyou}</textarea>
-
+  
   <input type="hidden" name="status"  value="{$status}">
   <input type="hidden" name="zyoutai" value="{$zyoutai}" > 
-</form>
-TABLE2;
+  <input type="hidden" name="id" value="{$id}" > 
 
-if($zyoutai=="未完了"){
+TABLE2;
+if($zyoutai=="未完了" && $status=="updata"){
 echo <<<TABLE6
 <p>ステータス</p>
 <input type="radio" name="zyoutai" value="未完了" checked>未完了
 <input type="radio" name="zyoutai" value="完了">完了
 TABLE6;
-}elseif($zyoutai=="完了"){
+}elseif($zyoutai=="完了" && $status=="updata"){
 echo <<<TABLE6
   <p>ステータス</p>
   <input type="radio" name="zyoutai" value="未完了">未完了
   <input type="radio" name="zyoutai" value="完了"checked>完了
 TABLE6;
 }
-if($status=="updata"){
+if($status=="updata" ){
 echo <<<TABLE3
   <br><input type="submit" name="button"  value="更新" class=kousinn>
   <input type="submit" name="button"  value="削除" class=sakuzyo>
 TABLE3;
 }else{
   echo <<<TABLE4
-  <input type="submit" name="button"  value="{$button}" class=left>
+  <input type="submit" name="button"  value="{$button}" >
   <input type="hidden" name="zyoutai" value="{$zyoutai}" > 
-  
 TABLE4;
-
 }
+ echo<<<TABLE8
+</form>
+TABLE8;
+
 }
 
 function show_create(){
@@ -115,8 +129,9 @@ function show_create(){
   show_form("","","","","登録","create","未完了","");
 }
 
-function show_edit($task,$end,$naiyou,$start,$button,$status,$zyoutai){
-  show_form($task,$end,$naiyou,$start,$button,"updata",$zyoutai,"");
+function show_edit($task,$end,$naiyou,$start,$button,$status,$zyoutai,$id){
+  $id = $_GET['id'];
+  show_form($task,$end,$naiyou,$start,$button,"updata",$zyoutai,$id);
 }
 ?>
 

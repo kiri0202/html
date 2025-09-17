@@ -1,5 +1,7 @@
 <?php
 require_once('common.php');
+// var_dump($_POST);
+// exit;
 if(isset($_POST["status"])){
   if(isset($_POST["task"])){
     $task=$_POST["task"];
@@ -22,17 +24,30 @@ if(isset($_POST["status"])){
   if(isset($_POST["zyoutai"])){
     $zyoutai=$_POST["zyoutai"];
   }
+  if(isset($_POST["id"])){
+    $id=$_POST["id"];
+  }
   
 }
-check_input($task,$naiyou,$error);
+
+if(check_input($task,$naiyou,$end,$error)==false){
+  header("Location: index.php?error={$error}");
+  exit;
+}
 if($_POST["status"] == "create"){
   $db->createtask($task,$end,$naiyou,$start,$zyoutai);
   header("Location: index.php");
   exit();
-}elseif($_POST["status"] == "updata"){
+}elseif($button == "更新"){
+  $db->updatatask($task,$end,$naiyou,$start,$zyoutai,$id);
+  header("Location: task.php");
+  exit();
+}elseif($button == "削除"){
+  // var_dump($_POST);
+  // exit;
+  $db->deletetask($id,$task);
   
-  $db->updatatask($task,$end,$naiyou,$start,$zyoutai);
-  header("Location: index.php");
+  header("Location: task.php");
   exit();
 }
 

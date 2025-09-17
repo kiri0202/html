@@ -44,8 +44,8 @@ class Database
   function gettask(){
     try{
       $this->connect();
-      $stmt = $this->pdo->query("SELECT task , end ,  start , zyoutai FROM task ORDER BY task;");
-      $task = $stmt->fetchAll();
+      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY task;");
+      $task = $stmt->fetchAll(PDO::FETCH_ASSOC);
       return $task;
     } catch (PDOException $e){
   echo $e->getMessage().'<br>';
@@ -53,11 +53,12 @@ class Database
     }
   }
 
-  function taskdata($task){
+  function taskdata($id){
     try {
       $this->connect();
-      $stmt = $this->pdo->prepare("SELECT task , end , naiyou , start , zyoutai FROM task WHERE task = ? ;");
-      $stmt->bindParam(1,$task,PDO::PARAM_STR);
+      $stmt = $this->pdo->prepare("SELECT id , task , end , naiyou , start , zyoutai FROM task WHERE id = ? ;");
+      $stmt->bindParam(1,$id,PDO::PARAM_INT);
+     
       $gettask=$stmt->execute();
       $gettask=$stmt->fetchAll();
       
@@ -71,17 +72,19 @@ class Database
 
 
 
-  function updatatask($task,$end,$naiyou,$start,$zyoutai)
+  function updatatask($task,$end,$naiyou,$start,$zyoutai,$id)
     {
     $this->connect();
     try {
-      $stmt = $this->pdo->prepare("UPDATE task SET task=?, end=?, naiyou=?, start=? , zyoutai=? WHERE task = ?;");
+      $stmt = $this->pdo->prepare("UPDATE task SET task=?, end=?, naiyou=?, start=? , zyoutai=? ,id=? WHERE id = ? AND task =?");
       $stmt->bindParam(1,$task,PDO::PARAM_STR);
       $stmt->bindParam(2,$end,PDO::PARAM_STR);
       $stmt->bindParam(3,$naiyou,PDO::PARAM_STR);
       $stmt->bindParam(4,$start,PDO::PARAM_STR);
       $stmt->bindParam(5,$zyoutai,PDO::PARAM_STR);
       $stmt->bindParam(6,$task,PDO::PARAM_STR);
+      $stmt->bindParam(7,$id,PDO::PARAM_STR);
+      
       $result = $stmt->execute();
       return true;
      
@@ -92,14 +95,14 @@ class Database
     return false;
   }
 
-  function deletesyain($id)
+  function deletetask($id,$task)
   {
     $this->connect();
     try {
-      $stmt = $this->pdo->prepare("DELETE FROM task WHERE task = ?");
-      $stmt->bindParam(1,$id,PDO::PARAM_STR);
+      $stmt = $this->pdo->prepare("DELETE FROM task WHERE id = ? AND task =?");
+      $stmt->bindParam(1,$id,PDO::PARAM_INT);
+      $stmt->bindParam(2,$task,PDO::PARAM_STR);
       $result = $stmt->execute();
-  
       return true;
     } catch (PDOException $e){
       echo $e->getMessage().'<br>';
