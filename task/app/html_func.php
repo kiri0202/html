@@ -30,7 +30,6 @@ BOTTOM;
 }
 
 function show_task($gettask){
-  // date_default_timezone_set('Asia/Tokyo');
   echo <<<TABLE
   <table>
     <tr>
@@ -56,7 +55,7 @@ TABLE;
   echo <<<TABLE3
   <tr>
   <td>{$start}</td>
-  <td><a href="updata.php?task={$gettasks['task']}&id={$gettasks['id']}">{$gettasks['task']}</a></td>
+  <td><a href="updata.php?id={$id}">{$task}</a></td>
   <td>{$zyoutai}</td>
   <td>{$end}</td>
   <td>
@@ -126,7 +125,7 @@ TABLE8;
 function show_create(){
   // date_default_timezone_set('Asia/Tokyo');
   // $start=date("n月j日 G時");
-  show_form("","","","","登録","create","未完了","");
+  show_form("$task","$end","$naiyou","","登録","create","未完了","");
 }
 
 function show_edit($task,$end,$naiyou,$start,$button,$status,$zyoutai,$id){

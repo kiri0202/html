@@ -1,7 +1,6 @@
 <?php
 require_once('common.php');
-// var_dump($_POST);
-// exit;
+
 if(isset($_POST["status"])){
   if(isset($_POST["task"])){
     $task=$_POST["task"];
@@ -27,28 +26,24 @@ if(isset($_POST["status"])){
   if(isset($_POST["id"])){
     $id=$_POST["id"];
   }
-  
-}
-
-if(check_input($task,$naiyou,$end,$error)==false){
-  header("Location: index.php?error={$error}");
-  exit;
-}
-if($_POST["status"] == "create"){
-  $db->createtask($task,$end,$naiyou,$start,$zyoutai);
-  header("Location: index.php");
-  exit();
-}elseif($button == "更新"){
-  $db->updatatask($task,$end,$naiyou,$start,$zyoutai,$id);
-  header("Location: task.php");
-  exit();
-}elseif($button == "削除"){
-  // var_dump($_POST);
-  // exit;
-  $db->deletetask($id,$task);
-  
-  header("Location: task.php");
-  exit();
+  if(check_input($task,$naiyou,$end,$error)==false){
+    header("Location: index.php?error={$error}");
+    exit;
+  }
+  if($_POST["status"] == "create"){
+    $db->createtask($task,$end,$naiyou,$start,$zyoutai);
+    header("Location: index.php");
+    exit();
+  }elseif($button == "更新"){
+    $db->updatatask($task,$end,$naiyou,$zyoutai,$id);
+    header("Location: task.php");
+    exit();
+  }elseif($button == "削除"){
+    $db->deletetask($id);
+    
+    header("Location: task.php");
+    exit();
+  }
 }
 
 ?>
