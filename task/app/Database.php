@@ -82,29 +82,29 @@ class Database
     }
     return false;
   }
-}
 
-function updatatask($task,$end,$naiyou,$zyoutai,$id)
-{
-  $this->connect();
-  try {
-    $stmt = $this->pdo->prepare("UPDATE task SET task=?, end=?, naiyou=?,  zyoutai=?  WHERE id = ? ");
-    $stmt->bindParam(1,$task,PDO::PARAM_STR);
-    $stmt->bindParam(2,$end,PDO::PARAM_STR);
-    $stmt->bindParam(3,$naiyou,PDO::PARAM_STR);
-    $stmt->bindParam(4,$zyoutai,PDO::PARAM_STR);
-    $stmt->bindParam(5,$id,PDO::PARAM_INT);
-    
-    
-    $result = $stmt->execute();
-    return true;
-    
-  } catch (PDOException $e){
-    echo $e->getMessage().'<br>';
-    exit;
+
+  function updatatask($task,$end,$naiyou,$zyoutai,$id)
+  {
+    $this->connect();
+    try {
+      $stmt = $this->pdo->prepare("UPDATE task SET task=?, end=?, naiyou=?,  zyoutai=?  WHERE id = ? ");
+      $stmt->bindParam(1,$task,PDO::PARAM_STR);
+      $stmt->bindParam(2,$end,PDO::PARAM_STR);
+      $stmt->bindParam(3,$naiyou,PDO::PARAM_STR);
+      $stmt->bindParam(4,$zyoutai,PDO::PARAM_STR);
+      $stmt->bindParam(5,$id,PDO::PARAM_INT);
+      
+      
+      $result = $stmt->execute();
+      return true;
+      
+    } catch (PDOException $e){
+      echo $e->getMessage().'<br>';
+      exit;
+    }
+    return false;
   }
-  return false;
+
 }
-
-
 ?>

@@ -122,10 +122,10 @@ TABLE8;
 
 }
 
-function show_create(){
+function show_create($task,$end,$naiyou){
   // date_default_timezone_set('Asia/Tokyo');
   // $start=date("n月j日 G時");
-  show_form("$task","$end","$naiyou","","登録","create","未完了","");
+  show_form($task,$end,$naiyou,"","登録","create","未完了","");
 }
 
 function show_edit($task,$end,$naiyou,$start,$button,$status,$zyoutai,$id){
