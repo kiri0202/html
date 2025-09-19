@@ -33,10 +33,18 @@ function show_task($gettask){
   echo <<<TABLE
   <table>
     <tr>
-    <th>登録日時</th>
+    <th>登録日時
+    <form action="task.php" method="post" style="display: inline;">
+      <input type="submit" name="button"  value="↓" >
+    </form>
+    </th>
     <th>タスク名</th>
     <th>ステータス</th>
-    <th>締切日</th>
+    <th>締切日
+    <form action="task_end.php" method="post" style="display: inline;">
+      <input type="submit" name="button"  value="↓" >
+    </form>
+    </th>
     </tr>
 TABLE;
 
@@ -47,18 +55,24 @@ TABLE;
     $id=$gettasks['id'];
     $task=$gettasks['task'];
     $status="";
-  if($gettasks["zyoutai"]=="未完了"){
-    $zyoutai="未完了";
-  }else{
-    $zyoutai="完了";
-  }
-  echo <<<TABLE3
+    $zyoutai=$gettasks["zyoutai"];
+    // if($gettasks["zyoutai"]=="未完了"){
+    //   $zyoutai="未完了";
+    // }else{
+    //   $zyoutai="完了";
+    // }
+    if($zyoutai=="完了"){
+      $kanryou="kanryou";
+    }else{
+      $kanryou="mikanryou";
+    }
+    echo <<<TABLE3
   <tr>
-  <td>{$start}</td>
-  <td><a href="updata.php?id={$id}">{$task}</a></td>
-  <td>{$zyoutai}</td>
-  <td>{$end}</td>
-  <td>
+  <td class="{$kanryou}">{$start}</td>
+  <td class="{$kanryou}"><a href="updata.php?id={$id}">{$task}</a></td>
+  <td class="{$kanryou}">{$zyoutai}</td>
+  <td class="{$kanryou}">{$end}</td>
+  <td class="{$kanryou}">
     <form action="post_data.php" method="post">
       <input type="submit" name="button"  value="削除" class=delete>
       <input type="hidden" name="id"  value="{$id}" >

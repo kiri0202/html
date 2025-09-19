@@ -1,6 +1,6 @@
 <?php
 require_once('common.php');
-var_dump($task);
+
 show_top("タスク登録");
 show_create($task,$end,$naiyou,$start,$button,$status);
 show_down("task");

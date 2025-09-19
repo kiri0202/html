@@ -44,7 +44,7 @@ class Database
   function gettask(){
     try{
       $this->connect();
-      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY task;");
+      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY id;");
       $task = $stmt->fetchAll(PDO::FETCH_ASSOC);
       return $task;
     } catch (PDOException $e){
@@ -52,6 +52,19 @@ class Database
   exit;
     }
   }
+
+  function getend(){
+    try{
+      $this->connect();
+      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY end;");
+      $task = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $task;
+    } catch (PDOException $e){
+  echo $e->getMessage().'<br>';
+  exit;
+    }
+  }
+  
   
   function taskdata($id){
     try {
