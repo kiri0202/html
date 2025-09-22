@@ -69,8 +69,24 @@ class Database
   function taskdata($id){
     try {
       $this->connect();
-      $stmt = $this->pdo->prepare("SELECT id , task , end , naiyou , start , zyoutai FROM task WHERE id = ? ;");
+      $stmt = $this->pdo->prepare("SELECT id , task , end ,  start , zyoutai FROM task WHERE id = ? ;");
       $stmt->bindParam(1,$id,PDO::PARAM_INT);
+      $gettask=$stmt->execute();
+      $gettask=$stmt->fetchAll();
+      
+      return $gettask[0];
+
+    }catch (PDOException $e){
+    echo $e->getMessage().'<br>';
+    exit;
+    }
+  }
+
+  function searchdata($task){
+    try {
+      $this->connect();
+      $stmt = $this->pdo->prepare("SELECT id , task , end , naiyou , start , zyoutai FROM task WHERE task = ? ;");
+      $stmt->bindParam(1,$task,PDO::PARAM_STR);
       $gettask=$stmt->execute();
       $gettask=$stmt->fetchAll();
       

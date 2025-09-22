@@ -1,10 +1,10 @@
 <?php
 require_once('common.php');
+$task=$_POST["search"];
 
-$gettask=$db->gettask();
-
+$gettask=$db->searchdata($task);
+var_dump($gettask);
 show_top("タスク一覧");
-show_search($gettask);
 show_task($gettask);
 show_down("create");
 ?>

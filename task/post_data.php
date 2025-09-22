@@ -1,5 +1,6 @@
 <?php
 require_once('common.php');
+var_dump($_POST);
 if(isset($_POST["status"])){
   if(isset($_POST["task"])){
     $task=$_POST["task"];
@@ -43,5 +44,13 @@ if(isset($_POST["status"])){
     exit();
   }
 }
+  
+  ?>
 
-?>
+<!-- }elseif($button == "検索"){
+  $id=$_POST["search"];
+  $db->gettask($id);
+  
+  
+  exit();
+} -->

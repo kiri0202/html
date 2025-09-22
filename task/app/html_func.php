@@ -136,6 +136,29 @@ TABLE8;
 
 }
 
+function show_search($gettask){
+  echo<<<TABLE9
+  <form action="task_search.php" method="post">
+  <select   name="search" >
+  <option value="">  選択してください</option>
+TABLE9;
+  
+  foreach ($gettask as $gettasks) {
+    $id=$gettasks["id"];
+    $task=$gettasks["task"];
+    
+  echo "<option value=\"{$task}\">{$task}</option>";
+  }
+  echo<<<TABLE10
+  <input type="submit" name="button"  value="検索" >
+ 
+  </select>
+</form>
+TABLE10;
+
+}
+
+
 function show_create($task,$end,$naiyou){
   // date_default_timezone_set('Asia/Tokyo');
   // $start=date("n月j日 G時");
@@ -147,4 +170,3 @@ function show_edit($task,$end,$naiyou,$start,$button,$status,$zyoutai,$id){
   show_form($task,$end,$naiyou,$start,$button,"updata",$zyoutai,$id);
 }
 ?>
-
