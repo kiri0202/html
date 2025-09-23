@@ -47,32 +47,32 @@ function show_task($gettask){
     </th>
     </tr>
 TABLE;
-
-  foreach ($gettask as $gettasks) {
-
-    $start = date('n月j日 G時i分', strtotime($gettasks["start"]));
-    $end = date('n月j日 ', strtotime($gettasks["end"]));
-    $id=$gettasks['id'];
-    $task=$gettasks['task'];
-    $status="";
-    $zyoutai=$gettasks["zyoutai"];
-    // if($gettasks["zyoutai"]=="未完了"){
+var_dump($gettask);
+foreach ($gettask as $gettasks) {
+    var_dump($gettasks['id']) ;
+  $start = date('n月j日 G時i分', strtotime($gettasks["start"]));
+  $end = date('n月j日 ', strtotime($gettasks["end"]));
+  $id=$gettasks['id'];
+  $task=$gettasks['task'];
+  $status="";
+  $zyoutai=$gettasks["zyoutai"];
+  // if($gettasks["zyoutai"]=="未完了"){
     //   $zyoutai="未完了";
     // }else{
-    //   $zyoutai="完了";
-    // }
-    if($zyoutai=="完了"){
-      $kanryou="kanryou";
-    }else{
-      $kanryou="mikanryou";
-    }
-    echo <<<TABLE3
-  <tr>
-  <td class="{$kanryou}">{$start}</td>
-  <td class="{$kanryou}"><a href="updata.php?id={$id}">{$task}</a></td>
-  <td class="{$kanryou}">{$zyoutai}</td>
-  <td class="{$kanryou}">{$end}</td>
-  <td class="{$kanryou}">
+      //   $zyoutai="完了";
+      // }
+      if($zyoutai=="完了"){
+        $kanryou="kanryou";
+      }else{
+        $kanryou="mikanryou";
+      }
+      echo <<<TABLE3
+      <tr>
+      <td class="{$kanryou}">{$start}</td>
+      <td class="{$kanryou}"><a href="updata.php?id={$id}">{$task}</a></td>
+      <td class="{$kanryou}">{$zyoutai}</td>
+      <td class="{$kanryou}">{$end}</td>
+      <td class="{$kanryou}">
     <form action="post_data.php" method="post">
       <input type="submit" name="button"  value="削除" class=delete>
       <input type="hidden" name="id"  value="{$id}" >
@@ -87,7 +87,7 @@ TABLE3;
   echo <<<TABLE4
   </table>
 TABLE4;
-  
+
 }
 function show_form($task,$end,$naiyou,$start,$button,$status,$zyoutai,$id){
   
@@ -121,7 +121,7 @@ TABLE6;
 }
 if($status=="updata" ){
 echo <<<TABLE3
-  <br><input type="submit" name="button"  value="更新" class=kousinn>
+  <br><input type="submit" name="button"  value="更新" class=kousin>
   <input type="submit" name="button"  value="削除" class=sakuzyo>
 TABLE3;
 }else{

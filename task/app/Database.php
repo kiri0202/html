@@ -52,6 +52,39 @@ class Database
   exit;
     }
   }
+  function gettask_down(){
+    try{
+      $this->connect();
+      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY id DESC;");
+      $task = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $task;
+    } catch (PDOException $e){
+  echo $e->getMessage().'<br>';
+  exit;
+    }
+  }
+  function gettask_kanryou(){
+    try{
+      $this->connect();
+      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY id AND zyoutai = '完了';;");
+      $task = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $task;
+    } catch (PDOException $e){
+  echo $e->getMessage().'<br>';
+  exit;
+    }
+  }
+  function gettask_mikanryou(){
+    try{
+      $this->connect();
+      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY id AND zyoutai = '未完了';;");
+      $task = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $task;
+    } catch (PDOException $e){
+  echo $e->getMessage().'<br>';
+  exit;
+    }
+  }
 
   function getend(){
     try{
