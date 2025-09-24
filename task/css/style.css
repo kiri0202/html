@@ -5,7 +5,7 @@ button{
 margin-top: 50px;
 }
 th{
-  width: 150px;
+  width: 200px;
 }
 table,td,th{
   border: 1px solid black;
@@ -30,4 +30,16 @@ textarea{
 .sakuzyo{
   background-color: red;
   margin: 20px;
+}
+.side{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+select{
+  padding: 5px;
+  margin-right: 10px;
+}
+.search{
+  align-self: center;
 }

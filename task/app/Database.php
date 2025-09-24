@@ -52,7 +52,7 @@ class Database
   exit;
     }
   }
-  function gettask_down(){
+  function gettaskdown(){
     try{
       $this->connect();
       $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY id DESC;");
@@ -63,10 +63,10 @@ class Database
   exit;
     }
   }
-  function gettask_kanryou(){
+  function taskkanryou(){
     try{
       $this->connect();
-      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY id AND zyoutai = '完了';;");
+      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task WHERE zyoutai = '完了' ORDER BY id;");
       $task = $stmt->fetchAll(PDO::FETCH_ASSOC);
       return $task;
     } catch (PDOException $e){
@@ -74,10 +74,10 @@ class Database
   exit;
     }
   }
-  function gettask_mikanryou(){
+  function taskmikanryou(){
     try{
       $this->connect();
-      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY id AND zyoutai = '未完了';;");
+      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task WHERE  zyoutai = '未完了'ORDER BY id ;");
       $task = $stmt->fetchAll(PDO::FETCH_ASSOC);
       return $task;
     } catch (PDOException $e){
@@ -97,12 +97,24 @@ class Database
   exit;
     }
   }
+
+  function getup(){
+    try{
+      $this->connect();
+      $stmt = $this->pdo->query("SELECT id, task , end ,  start , zyoutai FROM task ORDER BY end DESC;");
+      $task = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $task;
+    } catch (PDOException $e){
+  echo $e->getMessage().'<br>';
+  exit;
+    }
+  }
   
   
   function taskdata($id){
     try {
       $this->connect();
-      $stmt = $this->pdo->prepare("SELECT id , task , end ,  start , zyoutai FROM task WHERE id = ? ;");
+      $stmt = $this->pdo->prepare("SELECT id , task , end ,  start , zyoutai ,naiyou FROM task WHERE id = ? ;");
       $stmt->bindParam(1,$id,PDO::PARAM_INT);
       $gettask=$stmt->execute();
       $gettask=$stmt->fetchAll();

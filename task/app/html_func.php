@@ -1,6 +1,9 @@
 <?php
 
 function show_top($heading){
+  if($heading=="タスク一覧"){
+    $search="side";
+  }
   echo <<<TOP
   <!DOCTYPE html>
   <html lang="ja">
@@ -11,6 +14,7 @@ function show_top($heading){
   <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+  <div class="{$search}">
   <h1>{$heading}</h1>
 TOP;
 }
@@ -36,20 +40,27 @@ function show_task($gettask){
     <th>登録日時
     <form action="task.php" method="post" style="display: inline;">
       <input type="submit" name="button"  value="↓" >
+      <input type="submit" name="button"  value="↑" >
     </form>
     </th>
     <th>タスク名</th>
-    <th>ステータス</th>
+    <th>ステータス
+      <form action="task_status.php" method="post" style="display: inline;">
+        <input type="submit" name="button"  value="未" >
+        <input type="submit" name="button"  value="完" >
+        <input type="submit" name="button"  value="全" >
+      </form>
+    </th>
     <th>締切日
     <form action="task_end.php" method="post" style="display: inline;">
       <input type="submit" name="button"  value="↓" >
+      <input type="submit" name="button"  value="↑" >
     </form>
     </th>
     </tr>
 TABLE;
-var_dump($gettask);
+
 foreach ($gettask as $gettasks) {
-    var_dump($gettasks['id']) ;
   $start = date('n月j日 G時i分', strtotime($gettasks["start"]));
   $end = date('n月j日 ', strtotime($gettasks["end"]));
   $id=$gettasks['id'];
@@ -138,22 +149,25 @@ TABLE8;
 
 function show_search($gettask){
   echo<<<TABLE9
-  <form action="task_search.php" method="post">
+  <div class="search">
+  <form action="task_search.php" method="post" >
   <select   name="search" >
-  <option value="">  選択してください</option>
+  <option value=""> タスクの検索</option>
 TABLE9;
   
   foreach ($gettask as $gettasks) {
     $id=$gettasks["id"];
     $task=$gettasks["task"];
     
-  echo "<option value=\"{$task}\">{$task}</option>";
+    echo "<option value=\"{$task}\">{$task}</option>";
   }
   echo<<<TABLE10
   <input type="submit" name="button"  value="検索" >
- 
+  
   </select>
-</form>
+  </form>
+  </div>
+  </div>
 TABLE10;
 
 }
