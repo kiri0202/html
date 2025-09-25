@@ -41,6 +41,15 @@ class Database
     }
   }
 
+  function gettask($data,$where,$orderby){
+    $this->connect();
+    $sql=$data;
+    
+    $sql.=" WHERE $where";
+    $sql.=" ORDER BY $orderby";
+    $stmt = $this->pdo->query($sql);
+  }
+
   function gettask(){
     try{
       $this->connect();

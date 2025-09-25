@@ -1,6 +1,6 @@
 <?php
 require_once('common.php');
-var_dump($_POST);
+
 if(isset($_POST["status"])){
   if(isset($_POST["task"])){
     $task=$_POST["task"];
@@ -27,7 +27,12 @@ if(isset($_POST["status"])){
     $id=$_POST["id"];
   }
   if(check_input($task,$naiyou,$end,$error)==false){
-    header("Location: index.php?error={$error}");
+    session_start();
+    $_SESSION['task']=$task;
+    $_SESSION['naiyou']=$naiyou;
+    $_SESSION['end']=$end;
+    $_SESSION['error']=$error;
+    header("Location: index.php");
     exit;
   }
   if($_POST["status"] == "create"){

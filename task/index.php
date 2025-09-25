@@ -1,10 +1,15 @@
 <?php
 require_once('common.php');
-
+session_start();
+$task=$_SESSION['task'];
+$naiyou=$_SESSION['naiyou'];
+$end=$_SESSION['end'];
+$error=$_SESSION['error'];
+echo "<p class='red'>{$error}</p>";
 show_top("タスク登録");
-show_create($task,$end,$naiyou,$start,$button,$status);
+show_create($task,$end,$naiyou,$start,$button,$status,$error);
 show_down("task");
-
+session_destroy();
 //  try{
 //     $pdo = new PDO(
 //       'mysql:host=localhost;dbname=task;charset=utf8mb4',
