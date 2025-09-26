@@ -151,8 +151,8 @@ function show_search($gettask){
   echo<<<TABLE9
   <div class="search">
   <form action="task_search.php" method="post" >
-  <select   name="search" >
-  <option value=""> タスクの検索</option>
+  <input type="text" name="keyword" placeholder="">
+  <option value="">検索</option>
 TABLE9;
   
   foreach ($gettask as $gettasks) {

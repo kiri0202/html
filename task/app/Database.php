@@ -44,9 +44,12 @@ class Database
   function gettask($data,$where,$orderby){
     $this->connect();
     $sql=$data;
-    
-    $sql.=" WHERE $where";
-    $sql.=" ORDER BY $orderby";
+    if(!empty($where)){
+      $sql.=" WHERE $where";
+    }
+    if(!empty($orderby)){
+      $sql.=" ORDER BY $orderby";
+    }
     $stmt = $this->pdo->query($sql);
   }
 
@@ -136,11 +139,14 @@ class Database
     }
   }
 
-  function searchdata($task){
+  function searchdata($keyword){
     try {
       $this->connect();
-      $stmt = $this->pdo->prepare("SELECT id , task , end , naiyou , start , zyoutai FROM task WHERE task = ? ;");
-      $stmt->bindParam(1,$task,PDO::PARAM_STR);
+      $stmt = $this->pdo->prepare("SELECT id , task , end , naiyou , start , zyoutai FROM task WHERE task LIKE ? OR naiyou LIKE ?
+    ");
+      $likeKeyword = '%' . $keyword . '%';
+      $stmt->bindParam(1, $likeKeyword, PDO::PARAM_STR);
+      $stmt->bindParam(2, $likeKeyword, PDO::PARAM_STR);
       $gettask=$stmt->execute();
       $gettask=$stmt->fetchAll();
       
