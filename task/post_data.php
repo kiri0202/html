@@ -1,6 +1,6 @@
 <?php
 require_once('common.php');
-
+session_start();
 if(isset($_POST["status"])){
   if(isset($_POST["task"])){
     $task=$_POST["task"];
@@ -27,7 +27,7 @@ if(isset($_POST["status"])){
     $id=$_POST["id"];
   }
   if(check_input($task,$naiyou,$end,$error)==false){
-    session_start();
+    
     $_SESSION['task']=$task;
     $_SESSION['naiyou']=$naiyou;
     $_SESSION['end']=$end;
@@ -49,8 +49,23 @@ if(isset($_POST["status"])){
     exit();
   }
 }
-  
-  ?>
+// if (!isset($_SESSION['count'])) {
+//     $_SESSION['count'] = 0;
+// }
+if (isset($_POST['start'])) {
+    $_SESSION['start']++;
+  header("Location: task.php");
+}
+if (isset($_POST['end'])) {
+    $_SESSION['end']++;
+  header("Location: task_end.php");
+}
+if (isset($_POST['kansei'])) {
+    $_SESSION['kansei']++;
+  header("Location: task_status.php");
+}
+
+?>
 
 <!-- }elseif($button == "検索"){
   $id=$_POST["search"];

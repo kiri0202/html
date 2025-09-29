@@ -34,27 +34,24 @@ BOTTOM;
 }
 
 function show_task($gettask){
+  $kansei=9;
   echo <<<TABLE
   <table>
     <tr>
     <th>登録日時
-    <form action="task.php" method="post" style="display: inline;">
-      <input type="submit" name="button"  value="↓" >
-      <input type="submit" name="button"  value="↑" >
+    <form action="post_data.php" method="post" style="display: inline;">
+      <input type="submit" name="start"  value="↑↓" >
     </form>
     </th>
     <th>タスク名</th>
     <th>ステータス
-      <form action="task_status.php" method="post" style="display: inline;">
-        <input type="submit" name="button"  value="未" >
-        <input type="submit" name="button"  value="完" >
-        <input type="submit" name="button"  value="全" >
+      <form action="post_data.php" method="post" style="display: inline;">
+        <input type="submit" name="kansei"  value= $kansei >
       </form>
     </th>
     <th>締切日
-    <form action="task_end.php" method="post" style="display: inline;">
-      <input type="submit" name="button"  value="↓" >
-      <input type="submit" name="button"  value="↑" >
+    <form action="post_data.php" method="post" style="display: inline;">
+      <input type="submit" name="end"  value="↑↓" >
     </form>
     </th>
     </tr>
