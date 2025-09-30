@@ -19,22 +19,25 @@ function show_top($heading){
 TOP;
 }
 
+
 function show_down($e){
   if($e=="create"){
     echo "<br><button><a href=index.php>タスク登録</a></button>";
-    }
-    elseif($e=="task"){
+    }elseif($e=="task"){
       echo "<br><button><a href=task.php>タスク一覧</a></button>";
-      
-      }
+    }elseif($e=="search"){
+      echo "<button><a href=index.php>タスク登録</a></button>";
+      echo "<button><a href=task.php>タスク一覧</a></button>";
+    }
 echo <<<BOTTOM
 </body>
 </html>
 BOTTOM;
 }
 
+
 function show_task($gettask){
-  $kansei=9;
+  $kansei=$_SESSION['zyoutai'];
   echo <<<TABLE
   <table>
     <tr>
