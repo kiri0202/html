@@ -95,9 +95,14 @@ class Database
     return $this->get($where, $orderby);
   }
 
-  function getup(){
+  function getenddown(){
     $where="";
     $orderby="end DESC;";
+
+    return $this->get($where, $orderby);
+  }
+  function newtask($where,$orderby){
+   
 
     return $this->get($where, $orderby);
   }
@@ -137,6 +142,27 @@ class Database
     exit;
     }
   }
+
+  function search($keyword){
+  try {
+    $this->connect();
+
+    $stmt = $this->pdo->prepare("SELECT id, task, end, naiyou, start, zyoutai FROM task WHERE task LIKE ? OR naiyou LIKE ?");
+
+    $likeKeyword = '%' . $keyword . '%';
+    $stmt->bindParam(1, $likeKeyword, PDO::PARAM_STR);
+    $stmt->bindParam(2, $likeKeyword, PDO::PARAM_STR);
+
+    $stmt->execute();
+    $gettask = $stmt->fetchAll(PDO::FETCH_ASSOC);  // すべての行を連想配列で取得
+
+    return $gettask;
+
+  } catch (PDOException $e) {
+    echo $e->getMessage() . '<br>';
+    exit;
+  }
+}
 
   function deletetask($id)
   {

@@ -148,24 +148,12 @@ function show_search($gettask){
   echo<<<TABLE9
   <div class="search">
   <form action="task_search.php" method="post" >
-  <input type="text" name="keyword" placeholder="">
-  <option value="">検索</option>
-TABLE9;
-  
-  foreach ($gettask as $gettasks) {
-    $id=$gettasks["id"];
-    $task=$gettasks["task"];
-    
-    echo "<option value=\"{$task}\">{$task}</option>";
-  }
-  echo<<<TABLE10
-  <input type="submit" name="button"  value="検索" >
-  
-  </select>
+  <input type="text" name="keyword" placeholder="キーワード入力">
+  <input type="submit" name="button" value="検索">
   </form>
   </div>
   </div>
-TABLE10;
+TABLE9;
 
 }
 

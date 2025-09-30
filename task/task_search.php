@@ -2,7 +2,7 @@
 require_once('common.php');
 $task=$_POST["search"];
 var_dump($_POST);
-$gettask=$db->searchdata($task);
+$gettask=$db->search($task);
 var_dump($gettask);
 show_top("タスク検索");
 show_task($gettask);
