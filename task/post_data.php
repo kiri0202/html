@@ -53,8 +53,8 @@ if(isset($_POST["status"])){
 // if (!isset($_SESSION['count'])) {
 //     $_SESSION['count'] = 0;
 // }
-if(isset($_SESSION['kansei'])){
-  
+if(isset($_POST['kansei'])){
+  $_SESSION['kansei']++;
   if($_SESSION['kansei']%3==0){
       $where="";
   }
@@ -66,6 +66,8 @@ if(isset($_SESSION['kansei'])){
   }
 
   $_SESSION['where']=$where;
+  header("Location: task.php");
+  exit;
 }
 if ($_POST['start']) {
   $_SESSION['start']++;
@@ -89,11 +91,7 @@ if ($_POST['end']) {
 header("Location: task_end.php");
 exit;
 }
-if ($_POST['kansei']) {
-    $_SESSION['kansei']++;
-  header("Location: task.php");
-  exit;
-}
+
 
 $_SESSION['orderby']=$orderby;
 $_SESSION['where']=$where;
