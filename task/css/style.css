@@ -42,5 +42,7 @@ select{
   margin-right: 10px;
 }
 .search{
-  align-self: center;
+  
+  display: flex;
+  justify-content: space-between;
 }

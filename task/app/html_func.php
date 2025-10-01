@@ -1,7 +1,7 @@
 <?php
 
 function show_top($heading){
-  if($heading=="タスク一覧"){
+  if($heading=="タスク一覧"||$heading=="タスク検索"){
     $search="side";
   }
   echo <<<TOP
@@ -26,7 +26,7 @@ function show_down($e){
     }elseif($e=="task"){
       echo "<br><button><a href=task.php>タスク一覧</a></button>";
     }elseif($e=="search"){
-      echo "<button><a href=index.php>タスク登録</a></button>";
+      echo "<br><button><a href=index.php>タスク登録</a></button>";
       echo "<button><a href=task.php>タスク一覧</a></button>";
     }
 echo <<<BOTTOM
@@ -37,7 +37,17 @@ BOTTOM;
 
 
 function show_task($gettask){
-  $kansei=$_SESSION['zyoutai'];
+  if(empty($gettask)){
+    echo "<p class='red'>検索結果がありません</p>";
+  }else{
+  
+  if($_SESSION['where']=="zyoutai = '完了'"){
+    $kansei="完";
+  }elseif($_SESSION['where']==""){
+    $kansei="全";
+  }elseif($_SESSION['where']=="zyoutai = '未完了'"){
+    $kansei="未";
+  }
   echo <<<TABLE
   <table>
     <tr>
@@ -98,7 +108,7 @@ TABLE3;
   echo <<<TABLE4
   </table>
 TABLE4;
-
+}
 }
 function show_form($task,$end,$naiyou,$start,$button,$status,$zyoutai,$id){
   

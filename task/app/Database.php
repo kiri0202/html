@@ -124,24 +124,24 @@ class Database
     }
   }
 
-  function searchdata($keyword){
-    try {
-      $this->connect();
-      $stmt = $this->pdo->prepare("SELECT id , task , end , naiyou , start , zyoutai FROM task WHERE task LIKE ? OR naiyou LIKE ?
-    ");
-      $likeKeyword = '%' . $keyword . '%';
-      $stmt->bindParam(1, $likeKeyword, PDO::PARAM_STR);
-      $stmt->bindParam(2, $likeKeyword, PDO::PARAM_STR);
-      $gettask=$stmt->execute();
-      $gettask=$stmt->fetchAll();
+  // function searchdata($keyword){
+  //   try {
+  //     $this->connect();
+  //     $stmt = $this->pdo->prepare("SELECT id , task , end , naiyou , start , zyoutai FROM task WHERE task LIKE ? OR naiyou LIKE ?
+  //   ");
+  //     $likeKeyword = '%' . $keyword . '%';
+  //     $stmt->bindParam(1, $likeKeyword, PDO::PARAM_STR);
+  //     $stmt->bindParam(2, $likeKeyword, PDO::PARAM_STR);
+  //     $gettask=$stmt->execute();
+  //     $gettask=$stmt->fetchAll();
       
-      return $gettask[0];
+  //     return $gettask[0];
 
-    }catch (PDOException $e){
-    echo $e->getMessage().'<br>';
-    exit;
-    }
-  }
+  //   }catch (PDOException $e){
+  //   echo $e->getMessage().'<br>';
+  //   exit;
+  //   }
+  // }
 
   function search($keyword){
   try {
@@ -154,7 +154,7 @@ class Database
     $stmt->bindParam(2, $likeKeyword, PDO::PARAM_STR);
 
     $stmt->execute();
-    $gettask = $stmt->fetchAll(PDO::FETCH_ASSOC);  // すべての行を連想配列で取得
+    $gettask = $stmt->fetchAll(PDO::FETCH_ASSOC);  
 
     return $gettask;
 

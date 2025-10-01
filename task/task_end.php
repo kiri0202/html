@@ -8,7 +8,7 @@ require_once('common.php');
 //     $orderby="end DESC;";
 // }
 
-var_dump($_SESSION);
+
 $where=$_SESSION['where'];
 $orderby=$_SESSION['orderby'];
 $gettask=$db->newtask($where,$orderby);
