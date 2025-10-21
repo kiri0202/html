@@ -1,7 +1,7 @@
 <?php
 define('DSN','mysql:host=localhost;dbname=task;charset=utf8mb4');
-define('USER','sainasproduction_task');
-define('PASS','sV_Q7kWHqLpK');
+define('USER','root');
+define('PASS','root');
 
 class Database
 {
