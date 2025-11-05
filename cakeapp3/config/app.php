@@ -260,8 +260,8 @@ return [
      */
     'Datasources' => [
         'default' => [
-            'className' => Connection::class,
-            'driver' => Mysql::class,
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
             'host' => 'localhost',
             /*
@@ -273,17 +273,18 @@ return [
             /*
              * It is recommended to set these options through your environment or app_local.php
              */
-            //'username' => 'my_app',
-            //'password' => 'secret',
-            //'database' => 'my_app',
+            'username' => 'root',
+            'password' => 'root',
+            'database' => 'cakeapp3_db',
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
              */
-            //'encoding' => 'utf8mb4',
-            'timezone' => 'UTC',
+            'encoding' => 'utf8mb4',
+            'timezone' => null,
             'flags' => [],
             'cacheMetadata' => true,
             'log' => false,
+            
 
             /*
              * Set identifier quoting to true if you are using reserved words or

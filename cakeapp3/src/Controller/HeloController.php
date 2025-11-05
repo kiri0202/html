@@ -5,12 +5,18 @@ use App\Controller\AppController;
  
 class HeloController extends AppController
 {
+ 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->viewBuilder()->layout('sample');
+        $this->set('header', '* this is sample site *');
+        $this->set('footer', 'copyright 2015 libro.');
+    }
+     
     public function index()
     {
-        $this->autoRender = false;
-        echo "<html><head></head><body>";
-        echo "<h1>Hello!</h1>";
-        echo "<p>これは、サンプルで作成したページです。</p>";
-        echo "</body></html>";
+        $msg = "これは、サンプルアクションです。";
+        $this->set('message', $msg);
     }
 }

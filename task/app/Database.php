@@ -1,7 +1,8 @@
 <?php
-define('DSN','mysql:host=localhost;dbname=task;charset=utf8mb4');
+define('DSN','mysql:host=mysql2104.db.sakura.ne.jp;dbname=sainasproduction_task;charset=utf8mb4');
 define('USER','sainasproduction_task');
 define('PASS','sV_Q7kWHqLpK');
+
 
 class Database
 {
@@ -26,12 +27,12 @@ class Database
   function createtask($task,$end,$naiyou,$start,$zyoutai){
     try {
     $this->connect();
-    $stmt = $this->pdo->prepare("INSERT INTO task (task, end, naiyou, start, zyoutai) VALUES(?,?,?,?,?)");
+    $stmt = $this->pdo->prepare("INSERT INTO task (task, `end`, naiyou, zyoutai) VALUES(?,?,?,?)");
     $stmt ->bindParam(1,$task,PDO::PARAM_STR);
     $stmt ->bindParam(2,$end,PDO::PARAM_STR);
     $stmt ->bindParam(3,$naiyou,PDO::PARAM_STR);
-    $stmt ->bindParam(4,$start,PDO::PARAM_STR);
-    $stmt ->bindParam(5,$zyoutai,PDO::PARAM_STR);
+    
+    $stmt ->bindParam(4,$zyoutai,PDO::PARAM_STR);
     $result = $stmt ->execute();
     return true;
 
@@ -40,6 +41,26 @@ class Database
       exit;
     }
   }
+
+//   function createtask($task, $end, $naiyou, $zyoutai) {
+//     try {
+//         $this->connect();
+//         $stmt = $this->pdo->prepare(
+//             "INSERT INTO tasks (task, end, naiyou, zyoutai) VALUES (?, ?, ?, ?)"
+//         );
+//         $stmt->bindParam(1, $task, PDO::PARAM_STR);
+//         $stmt->bindParam(2, $end, PDO::PARAM_STR);      // YYYY-MM-DD
+//         $stmt->bindParam(3, $naiyou, PDO::PARAM_STR);   // TEXT
+//         $stmt->bindParam(4, $zyoutai, PDO::PARAM_STR);
+//         $stmt->execute();
+//         return true;
+//     } catch (PDOException $e) {
+//         echo "Error Code: " . $e->getCode() . "<br>";
+//         echo $e->getMessage() . "<br>";
+//         exit;
+//     }
+// }
+
 
   function get($where,$orderby){
     try{

@@ -1,0 +1,64 @@
+<?php
+/**
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link          https://cakephp.org CakePHP(tm) Project
+ * @since         0.10.0
+ * @license       https://opensource.org/licenses/mit-license.php MIT License
+ * @var \App\View\AppView $this
+ */
+
+$cakeDescription = 'タスク管理アプリ';
+?>
+<!DOCTYPE html >
+<html lang="ja">
+<head>
+    <?= $this->Html->charset() ?>
+    <meta http-equiv="Content-Language" content="ja">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <?= h($cakeDescription) ?>:
+        <?= $this->fetch('title') ?>
+    </title>
+    <?= $this->Html->meta('icon') ?>
+
+    <?= $this->Html->css('base.css') ?>
+    <?= $this->Html->css('style.css') ?>
+
+    <?= $this->fetch('meta') ?>
+    <?= $this->fetch('css') ?>
+    <?= $this->fetch('script') ?>
+</head>
+<body>
+    <nav class="top-bar expanded" data-topbar role="navigation">
+        <ul class="title-area large-3 medium-4 columns">
+            <li class="name">
+                <h1><a href="<?= $this->Url->build('/') ?>">タスク管理アプリ</a></h1>
+            </li>
+        </ul>
+        <div class="top-bar-section">
+            <ul class="right">
+                <li><a href="<?= $this->Url->build(['controller' => 'Tasks', 'action' => 'index']) ?>">タスク一覧</a></li>
+                <li><a href="<?= $this->Url->build(['controller' => 'Tasks', 'action' => 'add']) ?>">新規タスク追加</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <?= $this->Flash->render() ?>
+    <div class="container clearfix">
+        <?= $this->fetch('content') ?>
+    </div>
+
+    <footer>
+        <p style="text-align:center; color:#666; font-size:0.9em; margin-top:20px;">
+            © <?= date('Y') ?> タスク管理アプリ
+        </p>
+    </footer>
+</body>
+</html>
