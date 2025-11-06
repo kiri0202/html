@@ -183,14 +183,15 @@ ServerRequest::addDetector('tablet', function ($request) {
  * locale specific date formats. For details see
  * @link https://book.cakephp.org/3/en/core-libraries/internationalization-and-localization.html#parsing-localized-datetime-data
  */
-Type::build('time')
-    ->useImmutable();
-Type::build('date')
-    ->useImmutable();
-Type::build('datetime')
-    ->useImmutable();
-Type::build('timestamp')
-    ->useImmutable();
+
+
+
+// 既存の useImmutable() の部分を削除して、下記に書き換えます
+
+Type::map('time', \Cake\Database\Type\TimeType::class);
+Type::map('date', \Cake\Database\Type\DateType::class);
+Type::map('datetime', \Cake\Database\Type\DateTimeType::class);
+Type::map('timestamp', \Cake\Database\Type\DateTimeType::class);
 
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize
@@ -201,3 +202,17 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
+
+use Cake\I18n\I18n;
+
+I18n::setLocale('ja_JP');
+date_default_timezone_set('Asia/Tokyo');
+use Cake\I18n\FrozenTime;
+use Cake\I18n\FrozenDate;
+
+
+I18n::setLocale('ja_JP');
+
+// IntlDateFormatter が日本語を使うように指定
+setlocale(LC_TIME, 'ja_JP.UTF-8');
+setlocale(LC_ALL, 'ja_JP.UTF-8');

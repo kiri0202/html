@@ -8,13 +8,45 @@ use Cake\I18n\FrozenTime;
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-       
         <li><?= $this->Html->link('新規タスク追加', ['action' => 'add']) ?></li>
     </ul>
+    
+    <div class="sidebar-bottom">
+        <?= $this->element('calendar', ['tasks' => $tasks]) ?>
+    </div>
 </nav>
 
 <div class="tasks index large-9 medium-8 columns content">
-    <h3>タスク一覧</h3>
+    <div class="task-header">
+        <h3>タスク一覧</h3>
+
+        <?= $this->Form->create(null, ['type' => 'get', 'class' => 'search-form']) ?>
+            <?= $this->Form->control('keyword', [
+                'label' => false,
+                'value' => $this->request->getQuery('keyword'),
+                'placeholder' => '課題名を入力',
+                'class' => 'input-text'
+            ]) ?>
+
+            <?= $this->Form->control('status', [
+                'label' => false,
+                'type' => 'select',
+                'options' => [
+                    '' => '全て',
+                    'undone' => '未完了',
+                    'done' => '完了'
+                ],
+                'value' => $this->request->getQuery('status'),
+                'class' => 'input-select'
+            ]) ?>
+
+            <?= $this->Form->button('検索', ['class' => 'button-primary']) ?>
+           
+        <?= $this->Form->end() ?>
+    </div>
+
+
+
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -36,17 +68,15 @@ use Cake\I18n\FrozenTime;
 
                 if ($task->status === '完了') {
                     $rowClass = 'completed-task';
-                }
-                elseif ($task->status === '未完了' && $task->end_date) {
-                // 時刻付きの可能性があるため、日付部分だけ比較
-                $endDateOnly = ($task->end_date instanceof FrozenTime)
-                    ? $task->end_date->toDateString()
-                    : $task->end_date->format('Y-m-d');
+                } elseif ($task->status === '未完了' && $task->end_date) {
+                    $endDateOnly = ($task->end_date instanceof FrozenTime)
+                        ? $task->end_date->toDateString()
+                        : $task->end_date->format('Y-m-d');
 
-                if ($endDateOnly <= $today->format('Y-m-d')) {
-                    $rowClass = 'expired-task';
+                    if ($endDateOnly <= $today->format('Y-m-d')) {
+                        $rowClass = 'expired-task';
+                    }
                 }
-        }
             ?>
             <tr class="<?= $rowClass ?>">
                 <td><?= h($task->task) ?></td>

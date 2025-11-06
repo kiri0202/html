@@ -17,13 +17,23 @@ class TasksController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function index()
+  public function index()
     {
         $query = $this->Tasks->find();
 
-        // ステータスフィルタ（URLパラメータで切り替え）
+        $tasks = $this->Tasks->find('all')->toArray();
+        $this->set(compact('tasks'));
+
+        // 🔍 検索条件取得
+        $keyword = $this->request->getQuery('keyword');
         $status = $this->request->getQuery('status');
 
+        // 課題名（部分一致検索）
+        if (!empty($keyword)) {
+            $query->where(['Tasks.task LIKE' => '%' . $keyword . '%']);
+        }
+
+        // ステータスフィルタ
         if ($status === 'done') {
             $query->where(['Tasks.status' => '完了']);
         } elseif ($status === 'undone') {
@@ -32,12 +42,12 @@ class TasksController extends AppController
 
         $this->paginate = [
             'order' => ['Tasks.start_date' => 'asc'],
-            'sortableFields' => ['id', 'task', 'start_date', 'status', 'end_date'],
-            'limit' => 3
+            'sortableFields' => ['task', 'start_date', 'status', 'end_date'],
+            'limit' => 5
         ];
 
         $tasks = $this->paginate($query);
-        $this->set(compact('tasks', 'status'));
+        $this->set(compact('tasks', 'keyword', 'status'));
     }
     /**
      * View method
@@ -60,23 +70,27 @@ class TasksController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-  public function add()
-    {
-        $task = $this->Tasks->newEntity(); 
+public function add()
+{
+    // CakePHP 3系では newEntity() を使用
+    $task = $this->Tasks->newEntity();
 
-        if ($this->request->is('post')) {
-            $data = $this->request->getData();
-
-            $task = $this->Tasks->patchEntity($task, $data);
-            if ($this->Tasks->save($task)) {
-                $this->Flash->success(__('タスクを追加しました。'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('タスクの追加に失敗しました。'));
+    if ($this->request->is('post')) {
+        $task = $this->Tasks->patchEntity($task, $this->request->getData());
+        if ($this->Tasks->save($task)) {
+            $this->Flash->success(__('タスクを追加しました。'));
+            return $this->redirect(['action' => 'index']);
         }
-
-        $this->set(compact('task'));
+        $this->Flash->error(__('タスクの追加に失敗しました。'));
     }
+
+    // カレンダー表示用に全タスクを取得
+    $tasks = $this->Tasks->find('all')->toArray();
+
+    // ビューへ渡す
+    $this->set(compact('task', 'tasks'));
+}
+
 
 
 

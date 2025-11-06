@@ -544,16 +544,8 @@ label[for="end_date"] {
   position: relative;
   right: 0;
 }
-.completed-task {
-    background-color: lightslategray;
-    color: #eee; 
-}
-   
-.expired-task {
-    background-color:red;
-    color: #eee; 
-   
-}
+
+
 
 .filter-buttons .button {
     display: inline-block;
@@ -567,4 +559,67 @@ label[for="end_date"] {
 
 .filter-buttons .button:hover {
     background: #0056b3;
+}
+
+tr.completed-task {
+    background-color: lightslategray !important;
+    color: #eee !important;
+}
+
+
+tr.expired-task {
+    background-color: red !important;
+    color: #fff !important;
+}
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-form .input-text {
+    width: 200px;
+    padding: 6px;
+}
+
+.search-form .input-select {
+    padding: 6px;
+}
+
+.search-form .button-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.search-form .button-primary:hover,
+.search-form .button-secondary:hover {
+    opacity: 0.8;
+}
+select {
+    padding-right: 20px;
+    background-position: right 5px center; 
+    background-repeat: no-repeat;
+}
+#actions-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
 }

@@ -6,11 +6,11 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading">操作</li>
+        
+        <li><?= $this->Html->link('新規タスク追加', ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link('編集', ['action' => 'edit', $task->id]) ?> </li>
         <li><?= $this->Form->postLink('削除', ['action' => 'delete', $task->id], ['confirm' => "タスク #{$task->id} を削除してもよろしいですか？"]) ?> </li>
         <li><?= $this->Html->link('一覧へ戻る', ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link('新規タスク追加', ['action' => 'add']) ?> </li>
     </ul>
 </nav>
 
