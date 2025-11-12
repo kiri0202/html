@@ -15,12 +15,13 @@
         <legend>タスクを追加</legend>
         <?php
             echo $this->Form->control('task', [
-                'label' => '課題名',
+                'label' => 'タスク名',
                 'type' => 'text',
+                'required' => false
             ]);
 
             echo $this->Form->control('start_date', [
-                'label' => '開始日時',
+                'label' => '登録日時',
                 'type' => 'text',
                 'value' => date('Y-m-d H:i:s'),
                 'readonly' => true
@@ -38,7 +39,7 @@
             ]);
 
             echo $this->Form->hidden('status', ['value' => '未完了']);
-            echo $this->Form->control('description', ['label' => '内容']);
+            echo $this->Form->control('description', ['label' => '内容','required' => false]);
         ?>
     </fieldset>
     <?= $this->Form->button('登録') ?>
