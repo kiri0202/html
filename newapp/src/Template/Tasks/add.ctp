@@ -20,6 +20,13 @@
                 'required' => false
             ]);
 
+           echo $this->Form->control('user_id', [
+                'label' => '担当者',
+                'type' => 'select',
+                'options' => $users,
+                'empty' => '選択してください'
+            ]);
+
             echo $this->Form->control('start_date', [
                 'label' => '登録日時',
                 'type' => 'text',

@@ -51,6 +51,7 @@ use Cake\I18n\FrozenTime;
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('task', '課題名') ?></th>
+                <th scope="col">担当者</th>
                 <th scope="col"><?= $this->Paginator->sort('start_date', '開始日時') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('status', 'ステータス') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('end_date', '終了日') ?></th>
@@ -80,6 +81,7 @@ use Cake\I18n\FrozenTime;
             ?>
             <tr class="<?= $rowClass ?>">
                 <td><?= h($task->task) ?></td>
+                <td><?= h($task->user->name ?? '') ?></td>
                 <td><?= $task->start_date ? $task->start_date->i18nFormat('yyyy/MM/dd HH:mm') : '' ?></td>
                 <td><?= h($task->status) ?></td>
                 <td><?= $task->end_date ? $task->end_date->i18nFormat('yyyy/MM/dd') : '' ?></td>

@@ -26,15 +26,20 @@ class TasksTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
         $this->setTable('tasks');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
-    }
 
+        
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id', 
+            'joinType' => 'INNER', 
+        ]);
+    }
     /**
      * Default validation rules.
      *

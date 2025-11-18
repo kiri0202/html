@@ -48,6 +48,17 @@ class TasksController extends AppController
 
         $tasks = $this->paginate($query);
         $this->set(compact('tasks', 'keyword', 'status'));
+
+        $tasks = $this->Tasks->find()
+            ->contain(['Users']) // Users テーブルを結合
+            ->order(['Tasks.start_date' => 'DESC']);
+
+        $tasks = $this->paginate($tasks);
+
+        $this->set(compact('tasks'));
+    
+
+        
     }
     /**
      * View method
@@ -89,6 +100,13 @@ public function add()
 
     // ビューへ渡す
     $this->set(compact('task', 'tasks'));
+    
+
+    $this->set(compact('task', 'users'));
+
+    $this->loadModel('Users');
+        $users = $this->Users->find('list', ['keyField' => 'id', 'valueField' => 'name'])->toArray();
+        $this->set(compact('users'));
 }
 
 
@@ -116,6 +134,11 @@ public function add()
             $this->Flash->error(__('The task could not be saved. Please, try again.'));
         }
         $this->set(compact('task'));
+        $this->loadModel('Users');
+        
+        $this->loadModel('Users');
+        $users = $this->Users->find('list', ['keyField' => 'id', 'valueField' => 'name'])->toArray();
+        $this->set(compact('users'));
     }
 
     /**

@@ -18,7 +18,7 @@
     <h3>タスク詳細（ID: <?= h($task->id) ?>）</h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row">課題名</th>
+            <th scope="row">タスク名</th>
             <td><?= h($task->task) ?></td>
         </tr>
         <tr>

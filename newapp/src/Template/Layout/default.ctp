@@ -44,6 +44,7 @@ $cakeDescription = 'タスク管理アプリ';
         </ul>
         <div class="top-bar-section">
             <ul class="right">
+                <li><?= $this->Html->link('社員一覧', ['controller' => 'Users', 'action' => 'index']) ?></li>
                 <li><a href="<?= $this->Url->build(['controller' => 'Tasks', 'action' => 'index']) ?>">タスク一覧</a></li>
                 <li><a href="<?= $this->Url->build(['controller' => 'Tasks', 'action' => 'add']) ?>">新規タスク追加</a></li>
             </ul>

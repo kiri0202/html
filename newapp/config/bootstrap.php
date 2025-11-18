@@ -216,3 +216,5 @@ I18n::setLocale('ja_JP');
 // IntlDateFormatter が日本語を使うように指定
 setlocale(LC_TIME, 'ja_JP.UTF-8');
 setlocale(LC_ALL, 'ja_JP.UTF-8');
+
+use Cake\Core\Plugin;
