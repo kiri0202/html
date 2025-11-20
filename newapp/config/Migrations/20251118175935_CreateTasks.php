@@ -6,7 +6,7 @@ class CreateTasks extends AbstractMigration
     public function change()
     {
         $table = $this->table('tasks');
-        $table->addColumn('user_id', 'integer', ['null' => false])
+        $table->addColumn('user_id', 'integer', ['null' => true])
               ->addColumn('task', 'string', ['limit' => 128, 'null' => true])
               ->addColumn('start_date', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
               ->addColumn('status', 'string', ['limit' => 128, 'null' => true])

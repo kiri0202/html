@@ -25,10 +25,12 @@ class Task extends Entity
      * @var array
      */
     protected $_accessible = [
+        'id' => false,
         'task' => true,
         'start_date' => true,
         'status' => true,
         'end_date' => true,
         'description' => true,
+        'user_id' => true,
     ];
 }

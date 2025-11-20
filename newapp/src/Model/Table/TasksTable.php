@@ -36,8 +36,8 @@ class TasksTable extends Table
 
         
         $this->belongsTo('Users', [
-            'foreignKey' => 'user_id', 
-            'joinType' => 'INNER', 
+            'foreignKey' => 'user_id',
+            'joinType' => 'LEFT'
         ]);
     }
     /**

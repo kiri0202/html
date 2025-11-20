@@ -17,49 +17,52 @@ class TasksController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-  public function index()
-    {
-        $query = $this->Tasks->find();
+public function index()
+{
+    $query = $this->Tasks->find()
+        ->contain(['Users'])
+        ->order(['Tasks.start_date' => 'DESC']);
 
-        $tasks = $this->Tasks->find('all')->toArray();
-        $this->set(compact('tasks'));
+    // 検索条件
+    $keyword = $this->request->getQuery('keyword');
+    $status = $this->request->getQuery('status');
+    $userId = $this->request->getQuery('user_id');
 
-        // 🔍 検索条件取得
-        $keyword = $this->request->getQuery('keyword');
-        $status = $this->request->getQuery('status');
-
-        // 課題名（部分一致検索）
-        if (!empty($keyword)) {
-            $query->where(['Tasks.task LIKE' => '%' . $keyword . '%']);
-        }
-
-        // ステータスフィルタ
-        if ($status === 'done') {
-            $query->where(['Tasks.status' => '完了']);
-        } elseif ($status === 'undone') {
-            $query->where(['Tasks.status' => '未完了']);
-        }
-
-        $this->paginate = [
-            'order' => ['Tasks.start_date' => 'asc'],
-            'sortableFields' => ['task', 'start_date', 'status', 'end_date'],
-            'limit' => 5
-        ];
-
-        $tasks = $this->paginate($query);
-        $this->set(compact('tasks', 'keyword', 'status'));
-
-        $tasks = $this->Tasks->find()
-            ->contain(['Users']) // Users テーブルを結合
-            ->order(['Tasks.start_date' => 'DESC']);
-
-        $tasks = $this->paginate($tasks);
-
-        $this->set(compact('tasks'));
-    
-
-        
+    if (!empty($keyword)) {
+        $query->where(['Tasks.task LIKE' => '%' . $keyword . '%']);
     }
+
+    if ($status === 'done') {
+        $query->where(['Tasks.status' => '完了']);
+    } elseif ($status === 'undone') {
+        $query->where(['Tasks.status' => '未完了']);
+    }
+
+    // ★ 担当者で絞り込み
+    if (!empty($userId)) {
+        $query->where(['Tasks.user_id' => $userId]);
+    }
+
+    // ページネーション設定
+    $this->paginate = [
+        'limit' => 5,
+        'sortableFields' => ['task', 'start_date', 'status', 'end_date']
+    ];
+
+    $tasks = $this->paginate($query);
+
+    // ★ 担当者プルダウン用（忘れてた部分）
+    $this->loadModel('Users');
+    $users = $this->Users->find('list', [
+        'keyField' => 'id',
+        'valueField' => 'name'
+    ])->toArray();
+
+    // ★ ここに users を追加するのが重要
+    $this->set(compact('tasks', 'keyword', 'status', 'userId', 'users'));
+}
+
+
     /**
      * View method
      *
@@ -70,7 +73,7 @@ class TasksController extends AppController
     public function view($id = null)
     {
         $task = $this->Tasks->get($id, [
-            'contain' => [],
+            'contain' => ['Users'], // ← これを追加！
         ]);
 
         $this->set('task', $task);
@@ -83,11 +86,17 @@ class TasksController extends AppController
      */
 public function add()
 {
-    // CakePHP 3系では newEntity() を使用
     $task = $this->Tasks->newEntity();
 
     if ($this->request->is('post')) {
+
+        $data = $this->request->getData();
+
+        // 担当者IDをセット（ログイン機能がなければフォームで選択するか、固定値でもOK）
         $task = $this->Tasks->patchEntity($task, $this->request->getData());
+
+        $task = $this->Tasks->patchEntity($task, $data);
+
         if ($this->Tasks->save($task)) {
             $this->Flash->success(__('タスクを追加しました。'));
             return $this->redirect(['action' => 'index']);
@@ -96,17 +105,22 @@ public function add()
     }
 
     // カレンダー表示用に全タスクを取得
-    $tasks = $this->Tasks->find('all')->toArray();
+    $tasks = $this->Tasks->find('all')
+        ->contain(['Users']) // Users情報も取得
+        ->order(['Tasks.start_date' => 'ASC'])
+        ->toArray();
 
-    // ビューへ渡す
-    $this->set(compact('task', 'tasks'));
-    
-
-    $this->set(compact('task', 'users'));
-
+    // 担当者リスト（プルダウン用）
     $this->loadModel('Users');
-        $users = $this->Users->find('list', ['keyField' => 'id', 'valueField' => 'name'])->toArray();
-        $this->set(compact('users'));
+    $users = $this->Users->find('list', [
+        'keyField' => 'id',
+        'valueField' => 'name'
+    ])->toArray();
+
+    // ビューへセット
+    $this->set(compact('task', 'tasks', 'users'));
+
+    
 }
 
 
@@ -119,27 +133,28 @@ public function add()
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+   public function edit($id = null)
     {
         $task = $this->Tasks->get($id, [
-            'contain' => [],
+            'contain' => ['Users'], // ← 担当者データを取得
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $task = $this->Tasks->patchEntity($task, $this->request->getData());
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(__('The task has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The task could not be saved. Please, try again.'));
         }
-        $this->set(compact('task'));
-        $this->loadModel('Users');
-        
+
+        // 担当者リスト
         $this->loadModel('Users');
         $users = $this->Users->find('list', ['keyField' => 'id', 'valueField' => 'name'])->toArray();
-        $this->set(compact('users'));
+
+        $this->set(compact('task', 'users'));
     }
+
 
     /**
      * Delete method

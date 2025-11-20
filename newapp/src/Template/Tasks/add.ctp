@@ -22,9 +22,8 @@
 
            echo $this->Form->control('user_id', [
                 'label' => '担当者',
-                'type' => 'select',
                 'options' => $users,
-                'empty' => '選択してください'
+                'empty' => false  // 空欄不可
             ]);
 
             echo $this->Form->control('start_date', [

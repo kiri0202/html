@@ -39,6 +39,14 @@ use Cake\I18n\FrozenTime;
                 'value' => $this->request->getQuery('status'),
                 'class' => 'input-select'
             ]) ?>
+            <?= $this->Form->control('user_id', [
+                'label' => false,
+                'type' => 'select',
+                'options' => $users,
+                'empty' => '担当者',
+                'value' => $this->request->getQuery('user_id'),
+                'class' => 'input-select'
+            ]) ?>
 
             <?= $this->Form->button('検索', ['class' => 'button-primary']) ?>
            

@@ -22,6 +22,10 @@
             <td><?= h($task->task) ?></td>
         </tr>
         <tr>
+            <th scope="row">担当者</th>
+            <td><?= $task->user ? h($task->user->name) : '（未設定）' ?></td>
+        </tr>
+        <tr>
             <th scope="row">ステータス</th>
             <td><?= h($task->status) ?></td>
         </tr>
