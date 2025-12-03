@@ -32,5 +32,7 @@ class User extends Entity
         'gender' => true,
         'created' => true,
         'modified' => true,
+        'password' => true,  
+        'password_confirm' => true,
     ];
 }

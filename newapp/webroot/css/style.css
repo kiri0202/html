@@ -490,12 +490,6 @@ div.message.hidden {
     margin-bottom: -99999px;
     padding-bottom: 99999px;
 }
-@media(max-width: 640px) {
-    #actions-sidebar {
-        padding-bottom: 2rem;
-        margin-bottom: 0;
-    }
-}
 
 .content h3 {
     color: #be140b;
@@ -524,25 +518,25 @@ table td {
 }
 
 input[type="date"] {
-  font-size: 16px;          /* 文字サイズを少し大きく */
-  padding: 6px 10px;        /* 文字の周りに余白を追加 */
-  width: 220px;             /* 入力欄の幅を調整 */
-  line-height: 1.4;
-  padding-right: 32px;      /* ▼ボタンと文字が重ならないように */
-  box-sizing: border-box;
+    font-size: 16px;          /* 文字サイズを少し大きく */
+    padding: 6px 10px;        /* 文字の周りに余白を追加 */
+    width: 220px;             /* 入力欄の幅を調整 */
+    line-height: 1.4;
+    padding-right: 32px;      /* ▼ボタンと文字が重ならないように */
+    box-sizing: border-box;
 }
 
 /* 日付フィールドのラベル */
 label[for="end_date"] {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
 /* ▼アイコンとかぶり防止のため、全体バランス調整 */
 .tasks form input[type="date"]::-webkit-calendar-picker-indicator {
-  position: relative;
-  right: 0;
+    position: relative;
+    right: 0;
 }
 
 
@@ -622,4 +616,17 @@ select {
     margin-top: auto;
     padding-top: 20px;
     border-top: 1px solid #ccc;
+}
+.login-container{
+    margin-left: 30px;
+}
+
+
+@media(max-width: 767px) {
+    #actions-sidebar {
+        padding-bottom: 2rem;
+        margin-bottom: 0;
+        height:350px;
+    }
+    
 }

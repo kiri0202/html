@@ -65,6 +65,20 @@ public function validationDefault(Validator $validator)
         ->notEmptyString('gender', '性別を選択してください。')
         ->inList('gender', ['male', 'female', 'other'], '性別は男性・女性・その他から選択してください。');
 
+         $validator
+        ->scalar('password')
+        ->minLength('password', 6, 'パスワードは6文字以上で入力してください。')
+        ->notEmptyString('password', 'パスワードを入力してください。');
+
+    // ▼ パスワード確認
+    $validator
+        ->add('password_confirm', 'custom', [
+            'rule' => function ($value, $context) {
+                return $value === $context['data']['password'];
+            },
+            'message' => 'パスワードが一致しません。'
+        ])
+        ->notEmptyString('password_confirm', 'パスワード確認を入力してください。');
     return $validator;
 }
 
@@ -81,4 +95,5 @@ public function validationDefault(Validator $validator)
 
         return $rules;
     }
+
 }

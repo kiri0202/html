@@ -34,6 +34,29 @@
             'type' => 'select',
             'options' => ['male' => '男性', 'female' => '女性', 'other' => 'その他']
         ]) ?>
+<?= $this->Form->control('password', [
+    'label' => 'パスワード',
+    'type' => 'password',
+    'required' => true,
+    'templates' => [
+        'inputContainerError' => '<div class="error">{{content}}{{error}}</div>'
+    ]
+    ]) ?>
+    <button type="button" onclick="togglePassword('password')">表示/非表示</button>
+
+<?= $this->Form->control('password_confirm', [
+    'label' => 'パスワード確認',
+    'type' => 'password',
+    'required' => true,
+]) ?>
+<button type="button" onclick="togglePassword('password_confirm')">表示/非表示</button>
+
+<script>
+function togglePassword(id) {
+    const input = document.getElementById(id);
+    input.type = (input.type === 'password') ? 'text' : 'password';
+}
+</script>
     </fieldset>
     <?= $this->Form->button(__('登録')) ?>
     <?= $this->Form->end() ?>
