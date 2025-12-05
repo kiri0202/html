@@ -5,28 +5,17 @@ use App\Controller\AppController;
 
 class UsersController extends AppController
 {
-    public function initialize(): void
+    public function initialize()
     {
         parent::initialize();
-        $this->loadComponent('RequestHandler');
+
+        $this->loadComponent('RequestHandler', [
+            'enableBeforeRedirect' => false,
+        ]);
         $this->loadComponent('Flash');
 
-        // AuthComponent の設定
-        $this->loadComponent('Auth', [
-            'authenticate' => [
-                'Form' => [
-                    'fields' => ['username' => 'email', 'password' => 'password']
-                ]
-            ],
-            'loginRedirect' => ['controller' => 'Tasks', 'action' => 'index'],
-            'logoutRedirect' => ['controller' => 'Users', 'action' => 'login'],
-            'unauthorizedRedirect' => $this->referer()
-        ]);
-
-        // login / add アクションは未ログインでもアクセス可能
-        $this->Auth->allow(['login', 'add']);
+        
     }
-
     // -------------------------
     // ログイン処理
     // -------------------------
@@ -85,9 +74,6 @@ class UsersController extends AppController
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-
-            // 確認用は使わないので削除
-            unset($data['password_confirm']);
 
             $user = $this->Users->patchEntity($user, $data);
 

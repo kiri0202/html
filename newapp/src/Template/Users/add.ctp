@@ -29,6 +29,11 @@
             'empty' => ['year' => '年', 'month' => '月', 'day' => '日']
         ]) ?>
         <?= $this->Form->control('email', ['label' => 'メールアドレス']) ?>
+        <?= $this->Form->control('email_confirm', [
+            'label' => 'メールアドレス（確認）',
+            'type' => 'email',
+            'required' => true
+        ]) ?>
         <?= $this->Form->control('gender', [
             'label' => '性別',
             'type' => 'select',
@@ -37,6 +42,7 @@
 <?= $this->Form->control('password', [
     'label' => 'パスワード',
     'type' => 'password',
+    'id' => 'password',
     'required' => true,
     'templates' => [
         'inputContainerError' => '<div class="error">{{content}}{{error}}</div>'
@@ -47,6 +53,7 @@
 <?= $this->Form->control('password_confirm', [
     'label' => 'パスワード確認',
     'type' => 'password',
+    'id' => 'password_confirm', 
     'required' => true,
 ]) ?>
 <button type="button" onclick="togglePassword('password_confirm')">表示/非表示</button>

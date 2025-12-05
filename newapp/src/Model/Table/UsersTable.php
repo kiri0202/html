@@ -5,6 +5,9 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Auth\DefaultPasswordHasher;
+use Cake\Event\EventInterface;
+use ArrayObject;
 
 /**
  * Users Model
@@ -79,6 +82,17 @@ public function validationDefault(Validator $validator)
             'message' => 'パスワードが一致しません。'
         ])
         ->notEmptyString('password_confirm', 'パスワード確認を入力してください。');
+        
+        // ▼ メール確認
+        $validator
+        ->add('email_confirm', 'match', [
+            'rule' => function ($value, $context) {
+                return $value === ($context['data']['email'] ?? null);
+            },
+            'message' => 'メールアドレスが一致しません。'
+            ])
+            ->notEmptyString('email_confirm', '確認用メールアドレスを入力してください。');
+            
     return $validator;
 }
 
@@ -91,9 +105,20 @@ public function validationDefault(Validator $validator)
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
-
+        $rules->add($rules->isUnique(
+        ['email'],
+        'このメールアドレスは既に登録されています。'
+        ));
         return $rules;
     }
+
+    public function beforeSave(EventInterface $event, $entity, ArrayObject $options)
+{
+    // パスワードが変更された時だけハッシュ化
+    if ($entity->isDirty('password')) {
+        $entity->password = (new DefaultPasswordHasher)->hash($entity->password);
+    }
+}    
+
 
 }
