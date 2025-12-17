@@ -23,7 +23,7 @@
            echo $this->Form->control('user_id', [
                 'label' => '担当者',
                 'options' => $users,
-                'empty' => false  // 空欄不可
+                'empty' => false  
             ]);
 
             echo $this->Form->control('start_date', [
@@ -43,7 +43,11 @@
                     9 => '9月', 10 => '10月', 11 => '11月', 12 => '12月'
                 ]
             ]);
-
+            echo $this->Form->control('tag_names', [
+                'label' => 'タグ',
+                'type' => 'text',
+                'placeholder' => '例: 課題, 緊急, 私用'
+            ]);
             echo $this->Form->hidden('status', ['value' => '未完了']);
             echo $this->Form->control('description', ['label' => '内容','required' => false]);
         ?>

@@ -4,16 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Task Entity
+ * Tag Entity
  *
  * @property int $id
- * @property string|null $task
- * @property \Cake\I18n\FrozenTime $start_date
- * @property string|null $status
- * @property \Cake\I18n\FrozenDate|null $end_date
- * @property string|null $description
+ * @property string $name
+ * @property \Cake\I18n\Time $created
+ * @property \Cake\I18n\Time $modified
+ *
+ * @property \App\Model\Entity\Task[] $tasks
  */
-class Task extends Entity
+class Tag extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -25,13 +25,9 @@ class Task extends Entity
      * @var array
      */
     protected $_accessible = [
-        'id' => false,
-        'task' => true,
-        'start_date' => true,
-        'status' => true,
-        'end_date' => true,
-        'description' => true,
-        'user_id' => true,
-        '*' => true,
+        'name' => true,
+        'created' => true,
+        'modified' => true,
+        'tasks' => true,
     ];
 }

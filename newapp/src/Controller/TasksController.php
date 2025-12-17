@@ -90,9 +90,15 @@ public function add()
 
     if ($this->request->is('post')) {
 
+        $task = $this->Tasks->patchEntity(
+            $task,
+            $this->request->getData(),
+            ['associated' => ['Tags']] // ★ これが超重要
+        );
+
         $data = $this->request->getData();
 
-        // 担当者IDをセット（ログイン機能がなければフォームで選択するか、固定値でもOK）
+     
         $task = $this->Tasks->patchEntity($task, $this->request->getData());
 
         $task = $this->Tasks->patchEntity($task, $data);
@@ -136,7 +142,11 @@ public function add()
    public function edit($id = null)
     {
         $task = $this->Tasks->get($id, [
-            'contain' => ['Users'], // ← 担当者データを取得
+            'contain' => ['Users', 'Tags'], // Tags 追加
+        ]);
+
+        $task = $this->Tasks->get($id, [
+            'contain' => ['Users'], // 担当者データを取得
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
